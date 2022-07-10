@@ -1,4 +1,5 @@
 type PlaceCardProps = {
+  template: 'cities' | 'favorites';
   isFavorite: boolean;
   isPremium: boolean;
   previewImage: string;
