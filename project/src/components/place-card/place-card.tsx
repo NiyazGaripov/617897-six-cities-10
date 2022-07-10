@@ -1,22 +1,23 @@
 import PlaceCardProps from './place-card.type';
 
-function PlaceCard({isFavorite, isPremium, previewImage, price, title, type}: PlaceCardProps): JSX.Element {
+function PlaceCard({template, isFavorite, isPremium, previewImage, price, title, type}: PlaceCardProps): JSX.Element {
   const isBookmarkActive: string = isFavorite ? 'place-card__bookmark-button--active' : '';
+  const citiesTemplate: string = template;
 
   return (
-    <article className="cities__card place-card">
+    <article className={`${citiesTemplate}__card place-card`}>
       {
         isPremium &&
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
       }
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${citiesTemplate}__image-wrapper place-card__image-wrapper`}>
         <a href="/">
           <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image" />
         </a>
       </div>
-      <div className="place-card__info">
+      <div className={`${citiesTemplate}__card-info place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price} </b>
