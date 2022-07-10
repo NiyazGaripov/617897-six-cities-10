@@ -10,6 +10,7 @@ function Main({hotels, cities, placesCount, user}: MainProps): JSX.Element {
     (
       <PlaceCard
         key={hotel.id}
+        template='cities'
         isFavorite={hotel.isFavorite}
         isPremium={hotel.isPremium}
         previewImage={hotel.previewImage}
