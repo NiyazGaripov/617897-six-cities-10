@@ -2,6 +2,7 @@ import {Link} from 'react-router-dom';
 import FavoriteLocationProps from './favorite-location.type';
 import Hotel from '../../types/hotel.type';
 import PlaceCard from '../place-card/place-card';
+import {changeStringToLowerCase} from '../../utils/common';
 
 function FavoriteLocation({city, hotels}: FavoriteLocationProps):JSX.Element {
   const favoritesPlaces = hotels.map((hotel: Hotel): JSX.Element =>
@@ -23,7 +24,7 @@ function FavoriteLocation({city, hotels}: FavoriteLocationProps):JSX.Element {
     <li className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">
         <div className="locations__item">
-          <Link to={`/${city}`} className="locations__item-link">
+          <Link to={`/${changeStringToLowerCase(city)}`} className="locations__item-link">
             <span>{city}</span>
           </Link>
         </div>

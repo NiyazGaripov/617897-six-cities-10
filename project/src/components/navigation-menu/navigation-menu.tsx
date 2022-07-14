@@ -1,11 +1,12 @@
 import {NavLink} from 'react-router-dom';
 import NavigationMenuProps from './navigation-menu.type';
+import {changeStringToLowerCase} from '../../utils/common';
 
 function NavigationMenu({cities}: NavigationMenuProps): JSX.Element {
   const locations = cities.map((city: string): JSX.Element =>
     (
       <li className="locations__item" key={city}>
-        <NavLink to={`/${city}`} className={({ isActive }) => (isActive ? 'locations__item-link tabs__item--active' : 'locations__item-link tabs__item')}>
+        <NavLink to={`/${changeStringToLowerCase(city)}`} className={({ isActive }) => (isActive ? 'locations__item-link tabs__item--active' : 'locations__item-link tabs__item')}>
           <span>{city}</span>
         </NavLink>
       </li>
