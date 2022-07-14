@@ -1,3 +1,4 @@
+import {Link} from 'react-router-dom';
 import Header from '../../components/header/header';
 import LoginForm from '../../components/login-form/login-form';
 import SvgSprite from '../../components/svg-sprite/svg-sprite';
@@ -18,15 +19,14 @@ function Login(): JSX.Element {
             </section>
             <section className="locations locations--login locations--current">
               <div className="locations__item">
-                <a className="locations__item-link" href="/">
+                <Link to="/" className="locations__item-link">
                   <span>Amsterdam</span>
-                </a>
+                </Link>
               </div>
             </section>
           </div>
         </main>
       </div>
-
     </>
   );
 }

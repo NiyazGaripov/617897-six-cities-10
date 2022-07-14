@@ -1,3 +1,4 @@
+import {Link} from 'react-router-dom';
 import PlaceCardProps from './place-card.type';
 
 function PlaceCard({template, isFavorite, isPremium, previewImage, price, title, type}: PlaceCardProps): JSX.Element {
@@ -13,9 +14,9 @@ function PlaceCard({template, isFavorite, isPremium, previewImage, price, title,
         </div>
       }
       <div className={`${citiesTemplate}__image-wrapper place-card__image-wrapper`}>
-        <a href="/">
+        <Link to="/offer/1">
           <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image" />
-        </a>
+        </Link>
       </div>
       <div className={`${citiesTemplate}__card-info place-card__info`}>
         <div className="place-card__price-wrapper">
@@ -37,7 +38,9 @@ function PlaceCard({template, isFavorite, isPremium, previewImage, price, title,
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="/">{title}</a>
+          <Link to="/offer/1">
+            {title}
+          </Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
