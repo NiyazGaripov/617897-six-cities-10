@@ -1,10 +1,9 @@
-import {BrowserRouter, Route, Routes, Outlet } from 'react-router-dom';
+import {BrowserRouter, Route, Routes } from 'react-router-dom';
 import AppProps from './app.type';
 import {AppRoute} from '../../constants';
 import FAVORITE_LOCATIONS from '../../mock-data/favorite-locations.const';
 import HOTELS from '../../mock-data/hotels.const';
 import COMMENTS from '../../mock-data/comments.const';
-import CITIES from '../../mock-data/cities.const';
 import Main from '../../pages/main/main';
 import Login from '../../pages/login/login';
 import Favorites from '../../pages/favorites/favorites';
@@ -25,9 +24,10 @@ function App(props: AppProps): JSX.Element {
             />
           }
         >
-          {
-            CITIES.map((city: string) => <Route path={city} key={city} element={<Outlet />}/>)
-          }
+          <Route
+            path=":city"
+            element
+          />
         </Route>
         <Route
           path={AppRoute.Login}
