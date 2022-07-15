@@ -1,10 +1,11 @@
 import {BrowserRouter, Route, Routes, Outlet } from 'react-router-dom';
-import AppProps from './app.type';
 import {AppRoute, AuthorizationStatus} from '../../constants';
 import FAVORITE_LOCATIONS from '../../mock-data/favorite-locations.const';
 import HOTELS from '../../mock-data/hotels.const';
 import COMMENTS from '../../mock-data/comments.const';
 import CITIES from '../../mock-data/cities.const';
+import {Hotel} from '../../types/hotel.type';
+import User from '../../types/user.type';
 import Main from '../../pages/main/main';
 import Login from '../../pages/login/login';
 import Favorites from '../../pages/favorites/favorites';
@@ -12,7 +13,14 @@ import Property from '../../pages/property/property';
 import {NotFound} from '../../pages/not-found/not-found';
 import {PrivateRoute} from '../private-route/private-route';
 
-function App(props: AppProps): JSX.Element {
+type Props = {
+  hotels: Hotel[];
+  cities: string[];
+  placesCount: number;
+  user: User;
+};
+
+function App(props: Props): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>

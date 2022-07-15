@@ -1,7 +1,16 @@
 import {Link} from 'react-router-dom';
-import PlaceCardProps from './place-card.type';
 
-function PlaceCard({template, isFavorite, isPremium, previewImage, price, title, type}: PlaceCardProps): JSX.Element {
+type Props = {
+  template: 'cities' | 'favorites';
+  isFavorite: boolean;
+  isPremium: boolean;
+  previewImage: string;
+  price: number;
+  title: string;
+  type: string;
+};
+
+function PlaceCard({template, isFavorite, isPremium, previewImage, price, title, type}: Props): JSX.Element {
   const isBookmarkActive: string = isFavorite ? 'place-card__bookmark-button--active' : '';
   const citiesTemplate: string = template;
 

@@ -1,12 +1,19 @@
-import MainProps from './main.type';
-import Hotel from '../../types/hotel.type';
+import {Hotel} from '../../types/hotel.type';
+import User from '../../types/user.type';
 import Header from '../../components/header/header';
 import NavigationMenu from '../../components/navigation-menu/navigation-menu';
 import Sorting from '../../components/sorting/sorting';
 import PlaceCard from '../../components/place-card/place-card';
 import SvgSprite from '../../components/svg-sprite/svg-sprite';
 
-function Main({hotels, cities, placesCount, user}: MainProps): JSX.Element {
+type Props = {
+  hotels: Hotel[];
+  cities: string[];
+  placesCount: number;
+  user: User;
+};
+
+function Main({hotels, cities, placesCount, user}: Props): JSX.Element {
   const isEmptyPage: string = !hotels.length ? 'page__main--index-empty' : '';
   const places = hotels.map((hotel: Hotel): JSX.Element =>
     (

@@ -1,10 +1,14 @@
 import {Link} from 'react-router-dom';
-import FavoriteLocationProps from './favorite-location.type';
-import Hotel from '../../types/hotel.type';
+import {Hotel} from '../../types/hotel.type';
 import PlaceCard from '../place-card/place-card';
 import {changeStringToLowerCase} from '../../utils/common';
 
-function FavoriteLocation({city, hotels}: FavoriteLocationProps):JSX.Element {
+type Props = {
+  city: string;
+  hotels: Hotel[];
+};
+
+function FavoriteLocation({city, hotels}: Props):JSX.Element {
   const favoritesPlaces = hotels.map((hotel: Hotel): JSX.Element =>
     (
       <PlaceCard

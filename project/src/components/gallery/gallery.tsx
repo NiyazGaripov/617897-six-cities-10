@@ -1,6 +1,8 @@
-import GalleryProps from './gallery.type';
+type Props = {
+  images: string[];
+};
 
-function Gallery(props: GalleryProps): JSX.Element {
+function Gallery(props: Props): JSX.Element {
   const images = props.images.map((image: string): JSX.Element =>
     (
       <div className="property__image-wrapper" key={image}>

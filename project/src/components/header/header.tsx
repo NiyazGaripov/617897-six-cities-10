@@ -1,8 +1,12 @@
 import {Link} from 'react-router-dom';
-import HeaderProps from './header.type';
 import {AppRoute} from '../../constants';
+import User from '../../types/user.type';
 
-function Header({user}: HeaderProps): JSX.Element {
+type Props = {
+  user: User;
+}
+
+function Header({user}: Props): JSX.Element {
   const isAuth = user.email !== '';
 
   return (

@@ -1,7 +1,10 @@
-import ReviewsProps from './reviews.type';
 import Comment from '../../types/comment.type';
 
-function Reviews(props: ReviewsProps): JSX.Element {
+type Props = {
+  comments: Comment[];
+};
+
+function Reviews(props: Props): JSX.Element {
   const comments = props.comments.map((comment: Comment): JSX.Element =>
     (
       <li className="reviews__item" key={comment.id}>

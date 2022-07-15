@@ -1,10 +1,21 @@
+import {Hotel} from '../../types/hotel.type';
+import User from '../../types/user.type';
 import FavoriteLocation from '../../components/favorite-location/favorite-location';
-import FavoritesProps from './favorites.type';
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
 import SvgSprite from '../../components/svg-sprite/svg-sprite';
 
-function Favorites({user, locations}: FavoritesProps): JSX.Element {
+type Location = {
+  city: string;
+  hotels: Hotel[];
+};
+
+type Props = {
+  user: User;
+  locations: Location[];
+};
+
+function Favorites({user, locations}: Props): JSX.Element {
   const favoriteLocations = locations.map((location): JSX.Element =>
     (
       <FavoriteLocation

@@ -1,15 +1,19 @@
-import PropertyCardProps from './property-card.type';
+import {Hotel} from '../../types/hotel.type';
 import InsideFeatures from '../inside-features/inside-features';
 import PropertyHost from '../property-host/property-host';
 
-function PropertyCard({hotel}: PropertyCardProps): JSX.Element {
+type Props = {
+  hotel: Hotel;
+};
+
+function PropertyCard({hotel}: Props): JSX.Element {
   const {bedrooms, description, goods, host, isPremium, maxAdults, price, rating, title, type} = hotel;
 
   return (
     <>
       {
         isPremium &&
-        <div className="place-card__mark">
+        <div className="property__mark">
           <span>Premium</span>
         </div>
       }

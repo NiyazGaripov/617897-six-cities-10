@@ -1,6 +1,8 @@
-import InsideFeaturesProps from './inside-features.type';
+type Props = {
+  features: string[];
+};
 
-function InsideFeatures(props: InsideFeaturesProps): JSX.Element {
+function InsideFeatures(props: Props): JSX.Element {
   const features = props.features.map((feature: string): JSX.Element =>
     (
       <li className="property__inside-item" key={feature}>

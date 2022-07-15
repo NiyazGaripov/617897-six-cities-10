@@ -1,17 +1,20 @@
-import ReviewFormProps from './review-form.type';
 import Rating from '../../types/raiting.type';
 
-function ReviewForm({ratings}: ReviewFormProps): JSX.Element {
+type Props = {
+  ratings: Rating[];
+};
+
+function ReviewForm({ratings}: Props): JSX.Element {
   const inputs = ratings.map((rating: Rating): JSX.Element =>
     (
-      <>
+      <div key={rating.id}>
         <input className="form__rating-input visually-hidden" name="rating" value={rating.value} id={rating.id} type="radio" />
         <label htmlFor={rating.id} className="reviews__rating-label form__rating-label" title={rating.title}>
           <svg className="form__star-image" width="37" height="33">
-            <use xlinkHref="#icon-star"></use>
+            <use xlinkHref="#icon-star" />
           </svg>
         </label>
-      </>
+      </div>
     )
   );
 

@@ -1,6 +1,11 @@
-import PropertyHostProps from './property-host.type';
+import {Host} from '../../types/hotel.type';
 
-function PropertyHost(props: PropertyHostProps): JSX.Element {
+type Props = {
+  host: Host;
+  description: string;
+};
+
+function PropertyHost(props: Props): JSX.Element {
   const { avatarUrl, isPro, name } = props.host;
 
   return (

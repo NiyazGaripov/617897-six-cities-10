@@ -1,8 +1,11 @@
 import {NavLink} from 'react-router-dom';
-import NavigationMenuProps from './navigation-menu.type';
 import {changeStringToLowerCase} from '../../utils/common';
 
-function NavigationMenu({cities}: NavigationMenuProps): JSX.Element {
+type Props = {
+  cities: string[]
+};
+
+function NavigationMenu({cities}: Props): JSX.Element {
   const locations = cities.map((city: string): JSX.Element =>
     (
       <li className="locations__item" key={city}>
