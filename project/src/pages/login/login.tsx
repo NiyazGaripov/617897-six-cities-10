@@ -2,6 +2,7 @@ import {Link} from 'react-router-dom';
 import Header from '../../components/header/header';
 import LoginForm from '../../components/login-form/login-form';
 import SvgSprite from '../../components/svg-sprite/svg-sprite';
+import {AppRoute} from '../../constants';
 
 function Login(): JSX.Element {
   return (
@@ -19,7 +20,7 @@ function Login(): JSX.Element {
             </section>
             <section className="locations locations--login locations--current">
               <div className="locations__item">
-                <Link to="/" className="locations__item-link">
+                <Link to={AppRoute.Main} className="locations__item-link">
                   <span>Amsterdam</span>
                 </Link>
               </div>
