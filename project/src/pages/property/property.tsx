@@ -33,7 +33,7 @@ export function Property({isAuth, user, hotel, comments, nearbyHotels}: Props): 
         <main className="page__main page__main--property">
           <section className="property">
             <div className="property__gallery-container container">
-              <Gallery images={hotel.images}/>
+              <Gallery images={hotel.images} />
             </div>
 
             <div className="property__container container">
@@ -42,16 +42,16 @@ export function Property({isAuth, user, hotel, comments, nearbyHotels}: Props): 
 
                 <section className="property__reviews reviews">
                   <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">1</span></h2>
-                  <Reviews comments={comments}/>
+                  <Reviews comments={comments} />
 
                   {
                     isAuth &&
-                    <ReviewForm ratings={RATINGS}/>
+                    <ReviewForm ratings={RATINGS} />
                   }
                 </section>
               </div>
             </div>
-            <section className="property__map map"></section>
+            <section className="property__map map" />
           </section>
           <div className="container">
             <section className="near-places places">

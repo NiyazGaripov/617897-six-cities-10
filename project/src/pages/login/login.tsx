@@ -1,8 +1,8 @@
 import {Link} from 'react-router-dom';
+import {AppRoute} from '../../constants';
 import {Header} from '../../components/header/header';
 import {LoginForm} from '../../components/login-form/login-form';
 import {SvgSprite} from '../../components/svg-sprite/svg-sprite';
-import {AppRoute} from '../../constants';
 
 export function Login(): JSX.Element {
   return (

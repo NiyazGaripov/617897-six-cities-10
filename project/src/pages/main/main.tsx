@@ -53,7 +53,7 @@ export function Main({hotels, cities, placesCount, user}: Props): JSX.Element {
                     </div>
                   </section>
                   <div className="cities__right-section">
-                    <section className="cities__map map"></section>
+                    <section className="cities__map map" />
                   </div>
                 </div> :
                 <div className="cities__places-container cities__places-container--empty container">
@@ -63,7 +63,7 @@ export function Main({hotels, cities, placesCount, user}: Props): JSX.Element {
                       <p className="cities__status-description">We could not find any property available at the moment in Dusseldorf</p>
                     </div>
                   </section>
-                  <div className="cities__right-section"></div>
+                  <div className="cities__right-section" />
                 </div>
             }
           </div>
