@@ -1,10 +1,10 @@
 import {Hotel} from '../../types/hotel.type';
-import User from '../../types/user.type';
-import Header from '../../components/header/header';
-import NavigationMenu from '../../components/navigation-menu/navigation-menu';
-import Sorting from '../../components/sorting/sorting';
-import PlaceCard from '../../components/place-card/place-card';
-import SvgSprite from '../../components/svg-sprite/svg-sprite';
+import {User} from '../../types/user.type';
+import {Header} from '../../components/header/header';
+import {NavigationMenu} from '../../components/navigation-menu/navigation-menu';
+import {Sorting} from '../../components/sorting/sorting';
+import {PlaceCard} from '../../components/place-card/place-card';
+import {SvgSprite} from '../../components/svg-sprite/svg-sprite';
 
 type Props = {
   hotels: Hotel[];
@@ -13,7 +13,7 @@ type Props = {
   user: User;
 };
 
-function Main({hotels, cities, placesCount, user}: Props): JSX.Element {
+export function Main({hotels, cities, placesCount, user}: Props): JSX.Element {
   const isEmptyPage: string = !hotels.length ? 'page__main--index-empty' : '';
   const places = hotels.map((hotel: Hotel): JSX.Element =>
     (
@@ -71,5 +71,3 @@ function Main({hotels, cities, placesCount, user}: Props): JSX.Element {
     </>
   );
 }
-
-export default Main;

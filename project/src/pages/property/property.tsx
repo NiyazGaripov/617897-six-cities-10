@@ -1,14 +1,14 @@
-import User from '../../types/user.type';
+import {User} from '../../types/user.type';
 import {Hotel} from '../../types/hotel.type';
-import Comment from '../../types/comment.type';
-import RATINGS from '../../mock-data/raitings.const';
-import Header from '../../components/header/header';
-import Gallery from '../../components/gallery/gallery';
-import PlaceCard from '../../components/place-card/place-card';
-import PropertyCard from '../../components/property-card/property-card';
-import Reviews from '../../components/reviews/reviews';
-import ReviewForm from '../../components/review-form/review-form';
-import SvgSprite from '../../components/svg-sprite/svg-sprite';
+import {Comment} from '../../types/comment.type';
+import {RATINGS} from '../../mock-data/raitings.const';
+import {Header} from '../../components/header/header';
+import {Gallery} from '../../components/gallery/gallery';
+import {PlaceCard} from '../../components/place-card/place-card';
+import {PropertyCard} from '../../components/property-card/property-card';
+import {Reviews} from '../../components/reviews/reviews';
+import {ReviewForm} from '../../components/review-form/review-form';
+import {SvgSprite} from '../../components/svg-sprite/svg-sprite';
 
 type Props = {
   isAuth: boolean;
@@ -18,7 +18,7 @@ type Props = {
   nearbyHotels: Hotel[];
 };
 
-function Property({isAuth, user, hotel, comments, nearbyHotels}: Props): JSX.Element {
+export function Property({isAuth, user, hotel, comments, nearbyHotels}: Props): JSX.Element {
   const nearbyPlaces = nearbyHotels.map((nearbyHotel: Hotel): JSX.Element =>
     (
       <PlaceCard
@@ -81,5 +81,3 @@ function Property({isAuth, user, hotel, comments, nearbyHotels}: Props): JSX.Ele
     </>
   );
 }
-
-export default Property;

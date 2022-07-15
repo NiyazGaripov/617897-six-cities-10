@@ -1,7 +1,7 @@
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../constants';
 
-function Footer(): JSX.Element {
+export function Footer(): JSX.Element {
   return (
     <footer className="footer container">
       <Link to={AppRoute.Main} className="footer__logo-link" >
@@ -10,5 +10,3 @@ function Footer(): JSX.Element {
     </footer>
   );
 }
-
-export default Footer;

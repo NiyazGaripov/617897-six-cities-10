@@ -1,11 +1,9 @@
-import HOTELS from './hotels.const';
+import {HOTELS} from './hotels.const';
+import {FavoritePlace} from '../types/hotel.type';
 
-// TODO specify type for FAVORITE_LOCATIONS
-const FAVORITE_LOCATIONS = [
+export const FAVORITE_LOCATIONS: FavoritePlace[] = [
   {
     city: 'Amsterdam',
     hotels: HOTELS.filter((hotel) => hotel.isFavorite),
   }
 ];
-
-export default FAVORITE_LOCATIONS;

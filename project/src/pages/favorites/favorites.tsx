@@ -1,21 +1,16 @@
-import {Hotel} from '../../types/hotel.type';
-import User from '../../types/user.type';
-import FavoriteLocation from '../../components/favorite-location/favorite-location';
-import Header from '../../components/header/header';
-import Footer from '../../components/footer/footer';
-import SvgSprite from '../../components/svg-sprite/svg-sprite';
-
-type Location = {
-  city: string;
-  hotels: Hotel[];
-};
+import {FavoritePlace} from '../../types/hotel.type';
+import {User} from '../../types/user.type';
+import {FavoriteLocation} from '../../components/favorite-location/favorite-location';
+import {Header} from '../../components/header/header';
+import {Footer} from '../../components/footer/footer';
+import {SvgSprite} from '../../components/svg-sprite/svg-sprite';
 
 type Props = {
   user: User;
-  locations: Location[];
+  locations: FavoritePlace[];
 };
 
-function Favorites({user, locations}: Props): JSX.Element {
+export function Favorites({user, locations}: Props): JSX.Element {
   const favoriteLocations = locations.map((location): JSX.Element =>
     (
       <FavoriteLocation
@@ -57,5 +52,3 @@ function Favorites({user, locations}: Props): JSX.Element {
     </>
   );
 }
-
-export default Favorites;

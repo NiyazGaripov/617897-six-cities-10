@@ -1,10 +1,10 @@
-import Comment from '../../types/comment.type';
+import {Comment} from '../../types/comment.type';
 
 type Props = {
   comments: Comment[];
 };
 
-function Reviews(props: Props): JSX.Element {
+export function Reviews(props: Props): JSX.Element {
   const comments = props.comments.map((comment: Comment): JSX.Element =>
     (
       <li className="reviews__item" key={comment.id}>
@@ -36,5 +36,3 @@ function Reviews(props: Props): JSX.Element {
     </ul>
   );
 }
-
-export default Reviews;

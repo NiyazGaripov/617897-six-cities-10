@@ -1,12 +1,12 @@
 import {Hotel} from '../../types/hotel.type';
-import InsideFeatures from '../inside-features/inside-features';
-import PropertyHost from '../property-host/property-host';
+import {InsideFeatures} from '../inside-features/inside-features';
+import {PropertyHost} from '../property-host/property-host';
 
 type Props = {
   hotel: Hotel;
 };
 
-function PropertyCard({hotel}: Props): JSX.Element {
+export function PropertyCard({hotel}: Props): JSX.Element {
   const {bedrooms, description, goods, host, isPremium, maxAdults, price, rating, title, type} = hotel;
 
   return (
@@ -64,5 +64,3 @@ function PropertyCard({hotel}: Props): JSX.Element {
     </>
   );
 }
-
-export default PropertyCard;

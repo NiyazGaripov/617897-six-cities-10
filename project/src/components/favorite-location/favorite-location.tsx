@@ -1,6 +1,6 @@
 import {Link} from 'react-router-dom';
 import {Hotel} from '../../types/hotel.type';
-import PlaceCard from '../place-card/place-card';
+import {PlaceCard} from '../place-card/place-card';
 import {changeStringToLowerCase} from '../../utils/common';
 
 type Props = {
@@ -8,7 +8,7 @@ type Props = {
   hotels: Hotel[];
 };
 
-function FavoriteLocation({city, hotels}: Props):JSX.Element {
+export function FavoriteLocation({city, hotels}: Props):JSX.Element {
   const favoritesPlaces = hotels.map((hotel: Hotel): JSX.Element =>
     (
       <PlaceCard
@@ -37,8 +37,5 @@ function FavoriteLocation({city, hotels}: Props):JSX.Element {
         {favoritesPlaces}
       </div>
     </li>
-
   );
 }
-
-export default FavoriteLocation;

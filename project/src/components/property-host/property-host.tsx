@@ -5,7 +5,7 @@ type Props = {
   description: string;
 };
 
-function PropertyHost(props: Props): JSX.Element {
+export function PropertyHost(props: Props): JSX.Element {
   const { avatarUrl, isPro, name } = props.host;
 
   return (
@@ -32,5 +32,3 @@ function PropertyHost(props: Props): JSX.Element {
     </div>
   );
 }
-
-export default PropertyHost;

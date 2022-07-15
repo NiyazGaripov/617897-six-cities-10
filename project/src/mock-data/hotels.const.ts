@@ -1,6 +1,6 @@
-import Hotel from '../types/hotel.type';
+import {Hotel} from '../types/hotel.type';
 
-const HOTELS: Hotel[] = [
+export const HOTELS: Hotel[] = [
   {
     bedrooms: 3,
     city: {
@@ -192,5 +192,3 @@ const HOTELS: Hotel[] = [
     type: 'Private room',
   },
 ];
-
-export default HOTELS;

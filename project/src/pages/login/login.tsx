@@ -1,10 +1,10 @@
 import {Link} from 'react-router-dom';
-import Header from '../../components/header/header';
-import LoginForm from '../../components/login-form/login-form';
-import SvgSprite from '../../components/svg-sprite/svg-sprite';
+import {Header} from '../../components/header/header';
+import {LoginForm} from '../../components/login-form/login-form';
+import {SvgSprite} from '../../components/svg-sprite/svg-sprite';
 import {AppRoute} from '../../constants';
 
-function Login(): JSX.Element {
+export function Login(): JSX.Element {
   return (
     <>
       <SvgSprite />
@@ -31,5 +31,3 @@ function Login(): JSX.Element {
     </>
   );
 }
-
-export default Login;

@@ -1,12 +1,12 @@
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../constants';
-import User from '../../types/user.type';
+import {User} from '../../types/user.type';
 
 type Props = {
   user: User;
 }
 
-function Header({user}: Props): JSX.Element {
+export function Header({user}: Props): JSX.Element {
   const isAuth = user.email !== '';
 
   return (
@@ -49,5 +49,3 @@ function Header({user}: Props): JSX.Element {
     </header>
   );
 }
-
-export default Header;

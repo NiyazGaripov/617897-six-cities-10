@@ -2,7 +2,7 @@ type Props = {
   features: string[];
 };
 
-function InsideFeatures(props: Props): JSX.Element {
+export function InsideFeatures(props: Props): JSX.Element {
   const features = props.features.map((feature: string): JSX.Element =>
     (
       <li className="property__inside-item" key={feature}>
@@ -20,5 +20,3 @@ function InsideFeatures(props: Props): JSX.Element {
     </div>
   );
 }
-
-export default InsideFeatures;

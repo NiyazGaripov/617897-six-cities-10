@@ -5,7 +5,7 @@ type Props = {
   cities: string[]
 };
 
-function NavigationMenu({cities}: Props): JSX.Element {
+export function NavigationMenu({cities}: Props): JSX.Element {
   const locations = cities.map((city: string): JSX.Element =>
     (
       <li className="locations__item" key={city}>
@@ -26,5 +26,3 @@ function NavigationMenu({cities}: Props): JSX.Element {
     </div>
   );
 }
-
-export default NavigationMenu;

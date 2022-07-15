@@ -1,6 +1,6 @@
-import Rating from '../types/raiting.type';
+import {Rating} from '../types/raiting.type';
 
-const RATINGS: Rating[] = [
+export const RATINGS: Rating[] = [
   {
     value: '1',
     id: '1-star',
@@ -27,5 +27,3 @@ const RATINGS: Rating[] = [
     title: 'perfect',
   },
 ];
-
-export default RATINGS;

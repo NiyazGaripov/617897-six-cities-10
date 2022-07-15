@@ -10,7 +10,7 @@ type Props = {
   type: string;
 };
 
-function PlaceCard({template, isFavorite, isPremium, previewImage, price, title, type}: Props): JSX.Element {
+export function PlaceCard({template, isFavorite, isPremium, previewImage, price, title, type}: Props): JSX.Element {
   const isBookmarkActive: string = isFavorite ? 'place-card__bookmark-button--active' : '';
   const citiesTemplate: string = template;
 
@@ -56,5 +56,3 @@ function PlaceCard({template, isFavorite, isPremium, previewImage, price, title,
     </article>
   );
 }
-
-export default PlaceCard;

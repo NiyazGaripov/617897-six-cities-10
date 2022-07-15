@@ -1,10 +1,10 @@
-import Rating from '../../types/raiting.type';
+import {Rating} from '../../types/raiting.type';
 
 type Props = {
   ratings: Rating[];
 };
 
-function ReviewForm({ratings}: Props): JSX.Element {
+export function ReviewForm({ratings}: Props): JSX.Element {
   const inputs = ratings.map((rating: Rating): JSX.Element =>
     (
       <div key={rating.id}>
@@ -36,5 +36,3 @@ function ReviewForm({ratings}: Props): JSX.Element {
     </form>
   );
 }
-
-export default ReviewForm;
