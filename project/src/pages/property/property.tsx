@@ -19,21 +19,6 @@ type Props = {
 };
 
 export function Property({isAuth, user, hotel, comments, nearbyHotels}: Props): JSX.Element {
-  const nearbyPlaces = nearbyHotels.map((nearbyHotel: Hotel): JSX.Element =>
-    (
-      <PlaceCard
-        key={nearbyHotel.id}
-        template='cities'
-        isFavorite={nearbyHotel.isFavorite}
-        isPremium={nearbyHotel.isPremium}
-        previewImage={nearbyHotel.previewImage}
-        price={nearbyHotel.price}
-        title={nearbyHotel.title}
-        type={nearbyHotel.type}
-      />
-    )
-  );
-
   return (
     <>
       <SvgSprite />
@@ -72,7 +57,22 @@ export function Property({isAuth, user, hotel, comments, nearbyHotels}: Props): 
             <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
               <div className="near-places__list places__list">
-                {nearbyPlaces}
+                {
+                  nearbyHotels.map((nearbyHotel) =>
+                    (
+                      <PlaceCard
+                        key={nearbyHotel.id}
+                        template='cities'
+                        isFavorite={nearbyHotel.isFavorite}
+                        isPremium={nearbyHotel.isPremium}
+                        previewImage={nearbyHotel.previewImage}
+                        price={nearbyHotel.price}
+                        title={nearbyHotel.title}
+                        type={nearbyHotel.type}
+                      />
+                    )
+                  )
+                }
               </div>
             </section>
           </div>

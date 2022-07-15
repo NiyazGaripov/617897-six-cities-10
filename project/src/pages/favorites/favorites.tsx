@@ -11,16 +11,6 @@ type Props = {
 };
 
 export function Favorites({user, locations}: Props): JSX.Element {
-  const favoriteLocations = locations.map((location): JSX.Element =>
-    (
-      <FavoriteLocation
-        key={location.city}
-        city={location.city}
-        hotels={location.hotels}
-      />
-    )
-  );
-
   return (
     <>
       <SvgSprite />
@@ -34,7 +24,17 @@ export function Favorites({user, locations}: Props): JSX.Element {
                 <section className="favorites">
                   <h1 className="favorites__title">Saved listing</h1>
                   <ul className="favorites__list">
-                    {favoriteLocations}
+                    {
+                      locations.map((location) =>
+                        (
+                          <FavoriteLocation
+                            key={location.city}
+                            city={location.city}
+                            hotels={location.hotels}
+                          />
+                        )
+                      )
+                    }
                   </ul>
                 </section> :
                 <section className="favorites favorites--empty">

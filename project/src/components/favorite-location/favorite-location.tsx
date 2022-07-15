@@ -8,22 +8,7 @@ type Props = {
   hotels: Hotel[];
 };
 
-export function FavoriteLocation({city, hotels}: Props):JSX.Element {
-  const favoritesPlaces = hotels.map((hotel: Hotel): JSX.Element =>
-    (
-      <PlaceCard
-        key={hotel.id}
-        template='favorites'
-        isFavorite={hotel.isFavorite}
-        isPremium={hotel.isPremium}
-        previewImage={hotel.previewImage}
-        price={hotel.price}
-        title={hotel.title}
-        type={hotel.type}
-      />
-    )
-  );
-
+export function FavoriteLocation({city, hotels}: Props): JSX.Element {
   return (
     <li className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">
@@ -34,7 +19,22 @@ export function FavoriteLocation({city, hotels}: Props):JSX.Element {
         </div>
       </div>
       <div className="favorites__places">
-        {favoritesPlaces}
+        {
+          hotels.map((hotel) =>
+            (
+              <PlaceCard
+                key={hotel.id}
+                template='favorites'
+                isFavorite={hotel.isFavorite}
+                isPremium={hotel.isPremium}
+                previewImage={hotel.previewImage}
+                price={hotel.price}
+                title={hotel.title}
+                type={hotel.type}
+              />
+            )
+          )
+        }
       </div>
     </li>
   );

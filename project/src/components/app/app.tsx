@@ -36,7 +36,7 @@ export function App(props: Props): JSX.Element {
           }
         >
           {
-            CITIES.map((city: string) => <Route path={city} key={city} element={<Outlet />}/>)
+            CITIES.map((city) => <Route path={city} key={city} element={<Outlet />}/>)
           }
         </Route>
         <Route

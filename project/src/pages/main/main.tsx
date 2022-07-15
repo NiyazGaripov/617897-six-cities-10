@@ -15,20 +15,6 @@ type Props = {
 
 export function Main({hotels, cities, placesCount, user}: Props): JSX.Element {
   const isEmptyPage: string = !hotels.length ? 'page__main--index-empty' : '';
-  const places = hotels.map((hotel: Hotel): JSX.Element =>
-    (
-      <PlaceCard
-        key={hotel.id}
-        template='cities'
-        isFavorite={hotel.isFavorite}
-        isPremium={hotel.isPremium}
-        previewImage={hotel.previewImage}
-        price={hotel.price}
-        title={hotel.title}
-        type={hotel.type}
-      />
-    )
-  );
 
   return (
     <>
@@ -41,14 +27,29 @@ export function Main({hotels, cities, placesCount, user}: Props): JSX.Element {
           <NavigationMenu cities={cities}/>
           <div className="cities">
             {
-              places.length ?
+              hotels.length ?
                 <div className="cities__places-container container">
                   <section className="cities__places places">
                     <h2 className="visually-hidden">Places</h2>
                     <b className="places__found">{placesCount} places to stay in Amsterdam</b>
                     <Sorting />
                     <div className="cities__places-list places__list tabs__content">
-                      {places}
+                      {
+                        hotels.map((hotel) =>
+                          (
+                            <PlaceCard
+                              key={hotel.id}
+                              template='cities'
+                              isFavorite={hotel.isFavorite}
+                              isPremium={hotel.isPremium}
+                              previewImage={hotel.previewImage}
+                              price={hotel.price}
+                              title={hotel.title}
+                              type={hotel.type}
+                            />
+                          )
+                        )
+                      }
                     </div>
                   </section>
                   <div className="cities__right-section">
