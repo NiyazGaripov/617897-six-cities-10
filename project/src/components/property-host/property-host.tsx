@@ -1,6 +1,11 @@
-import PropertyHostProps from './property-host.type';
+import {Host} from '../../types/hotel.type';
 
-function PropertyHost(props: PropertyHostProps): JSX.Element {
+type Props = {
+  host: Host;
+  description: string;
+};
+
+export function PropertyHost(props: Props): JSX.Element {
   const { avatarUrl, isPro, name } = props.host;
 
   return (
@@ -27,5 +32,3 @@ function PropertyHost(props: PropertyHostProps): JSX.Element {
     </div>
   );
 }
-
-export default PropertyHost;

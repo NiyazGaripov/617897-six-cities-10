@@ -1,8 +1,22 @@
-import Location from './location.type';
-import City from './city.type';
-import Host from './host.type';
+type City = {
+  location: Location;
+  name: string;
+};
 
-type Hotel = {
+export type Host = {
+  avatarUrl: string;
+  id: number;
+  isPro: boolean;
+  name: string;
+};
+
+type Location = {
+  latitude: number;
+  longitude: number;
+  zoom: number;
+};
+
+export type Hotel = {
   bedrooms: number;
   city: City;
   description: string;
@@ -21,4 +35,7 @@ type Hotel = {
   type: string;
 };
 
-export default Hotel;
+export type FavoritePlace = {
+  city: string;
+  hotels: Hotel[];
+};

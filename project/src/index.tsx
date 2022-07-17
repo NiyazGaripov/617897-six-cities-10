@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './components/app/app';
-import HOTELS from './mock-data/hotels.const';
-import CITIES from './mock-data/cities.const';
+import {HOTELS} from './mock-data/hotels.const';
+import {CITIES} from './mock-data/cities.const';
+import {App} from './components/app/app';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,

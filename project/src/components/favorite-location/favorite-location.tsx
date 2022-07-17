@@ -1,38 +1,41 @@
-import FavoriteLocationProps from './favorite-location.type';
-import Hotel from '../../types/hotel.type';
-import PlaceCard from '../place-card/place-card';
+import {Link} from 'react-router-dom';
+import {Hotel} from '../../types/hotel.type';
+import {PlaceCard} from '../place-card/place-card';
+import {changeStringToLowerCase} from '../../utils/common';
 
-function FavoriteLocation({city, hotels}: FavoriteLocationProps):JSX.Element {
-  const favoritesPlaces = hotels.map((hotel: Hotel): JSX.Element =>
-    (
-      <PlaceCard
-        key={hotel.id}
-        template='favorites'
-        isFavorite={hotel.isFavorite}
-        isPremium={hotel.isPremium}
-        previewImage={hotel.previewImage}
-        price={hotel.price}
-        title={hotel.title}
-        type={hotel.type}
-      />
-    )
-  );
+type Props = {
+  city: string;
+  hotels: Hotel[];
+};
 
+export function FavoriteLocation({city, hotels}: Props): JSX.Element {
   return (
     <li className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">
         <div className="locations__item">
-          <a className="locations__item-link" href="/">
+          <Link to={`/${changeStringToLowerCase(city)}`} className="locations__item-link">
             <span>{city}</span>
-          </a>
+          </Link>
         </div>
       </div>
       <div className="favorites__places">
-        {favoritesPlaces}
+        {
+          hotels.map((hotel) =>
+            (
+              <PlaceCard
+                key={hotel.id}
+                template='favorites'
+                isFavorite={hotel.isFavorite}
+                isPremium={hotel.isPremium}
+                previewImage={hotel.previewImage}
+                price={hotel.price}
+                title={hotel.title}
+                type={hotel.type}
+              />
+            )
+          )
+        }
       </div>
     </li>
-
   );
 }
-
-export default FavoriteLocation;

@@ -1,6 +1,16 @@
-import PlaceCardProps from './place-card.type';
+import {Link} from 'react-router-dom';
 
-function PlaceCard({template, isFavorite, isPremium, previewImage, price, title, type}: PlaceCardProps): JSX.Element {
+type Props = {
+  template: 'cities' | 'favorites';
+  isFavorite: boolean;
+  isPremium: boolean;
+  previewImage: string;
+  price: number;
+  title: string;
+  type: string;
+};
+
+export function PlaceCard({template, isFavorite, isPremium, previewImage, price, title, type}: Props): JSX.Element {
   const isBookmarkActive: string = isFavorite ? 'place-card__bookmark-button--active' : '';
   const citiesTemplate: string = template;
 
@@ -13,9 +23,9 @@ function PlaceCard({template, isFavorite, isPremium, previewImage, price, title,
         </div>
       }
       <div className={`${citiesTemplate}__image-wrapper place-card__image-wrapper`}>
-        <a href="/">
+        <Link to="/offer/1">
           <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image" />
-        </a>
+        </Link>
       </div>
       <div className={`${citiesTemplate}__card-info place-card__info`}>
         <div className="place-card__price-wrapper">
@@ -25,7 +35,7 @@ function PlaceCard({template, isFavorite, isPremium, previewImage, price, title,
           </div>
           <button className={`place-card__bookmark-button ${isBookmarkActive} button`} type="button">
             <svg className="place-card__bookmark-icon" width="18" height="19">
-              <use xlinkHref="#icon-bookmark"></use>
+              <use xlinkHref="#icon-bookmark" />
             </svg>
             <span className="visually-hidden">To bookmarks</span>
           </button>
@@ -37,12 +47,12 @@ function PlaceCard({template, isFavorite, isPremium, previewImage, price, title,
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="/">{title}</a>
+          <Link to="/offer/1">
+            {title}
+          </Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
     </article>
   );
 }
-
-export default PlaceCard;

@@ -1,6 +1,6 @@
-import Hotel from '../types/hotel.type';
+import {Hotel} from '../types/hotel.type';
 
-const HOTELS: Hotel[] = [
+export const HOTELS: Hotel[] = [
   {
     bedrooms: 3,
     city: {
@@ -16,7 +16,7 @@ const HOTELS: Hotel[] = [
       'Heating'
     ],
     host: {
-      avatarUrl: 'img/apartment-01.jpg',
+      avatarUrl: 'img/avatar-angelina.jpg',
       id: 1,
       isPro: true,
       name: 'Angelina',
@@ -54,7 +54,7 @@ const HOTELS: Hotel[] = [
       'Heating',
     ],
     host: {
-      avatarUrl: 'img/room.jpg',
+      avatarUrl: 'img/avatar-angelina.jpg',
       id: 2,
       isPro: false,
       name: 'Keks',
@@ -92,7 +92,7 @@ const HOTELS: Hotel[] = [
       'Heating',
     ],
     host: {
-      avatarUrl: 'img/apartment-02.jpg',
+      avatarUrl: 'img/avatar-angelina.jpg',
       id: 2,
       isPro: false,
       name: 'Alice',
@@ -130,7 +130,7 @@ const HOTELS: Hotel[] = [
       'Heating',
     ],
     host: {
-      avatarUrl: 'img/apartment-03.jpg',
+      avatarUrl: 'img/avatar-angelina.jpg',
       id: 2,
       isPro: false,
       name: 'Alice',
@@ -168,7 +168,7 @@ const HOTELS: Hotel[] = [
       'Heating',
     ],
     host: {
-      avatarUrl: 'img/room.jpg',
+      avatarUrl: 'img/avatar-angelina.jpg',
       id: 2,
       isPro: false,
       name: 'Keks',
@@ -192,5 +192,3 @@ const HOTELS: Hotel[] = [
     type: 'Private room',
   },
 ];
-
-export default HOTELS;

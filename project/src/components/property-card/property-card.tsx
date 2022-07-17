@@ -1,15 +1,19 @@
-import PropertyCardProps from './property-card.type';
-import InsideFeatures from '../inside-features/inside-features';
-import PropertyHost from '../property-host/property-host';
+import {Hotel} from '../../types/hotel.type';
+import {InsideFeatures} from '../inside-features/inside-features';
+import {PropertyHost} from '../property-host/property-host';
 
-function PropertyCard({hotel}: PropertyCardProps): JSX.Element {
+type Props = {
+  hotel: Hotel;
+};
+
+export function PropertyCard({hotel}: Props): JSX.Element {
   const {bedrooms, description, goods, host, isPremium, maxAdults, price, rating, title, type} = hotel;
 
   return (
     <>
       {
         isPremium &&
-        <div className="place-card__mark">
+        <div className="property__mark">
           <span>Premium</span>
         </div>
       }
@@ -20,7 +24,7 @@ function PropertyCard({hotel}: PropertyCardProps): JSX.Element {
         </h1>
         <button className="property__bookmark-button button" type="button">
           <svg className="property__bookmark-icon" width="31" height="33">
-            <use xlinkHref="#icon-bookmark"></use>
+            <use xlinkHref="#icon-bookmark" />
           </svg>
           <span className="visually-hidden">To bookmarks</span>
         </button>
@@ -60,5 +64,3 @@ function PropertyCard({hotel}: PropertyCardProps): JSX.Element {
     </>
   );
 }
-
-export default PropertyCard;

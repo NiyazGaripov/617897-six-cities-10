@@ -1,27 +1,20 @@
-import MainProps from './main.type';
-import Hotel from '../../types/hotel.type';
-import Header from '../../components/header/header';
-import NavigationMenu from '../../components/navigation-menu/navigation-menu';
-import Sorting from '../../components/sorting/sorting';
-import PlaceCard from '../../components/place-card/place-card';
-import SvgSprite from '../../components/svg-sprite/svg-sprite';
+import {Hotel} from '../../types/hotel.type';
+import {User} from '../../types/user.type';
+import {Header} from '../../components/header/header';
+import {NavigationMenu} from '../../components/navigation-menu/navigation-menu';
+import {Sorting} from '../../components/sorting/sorting';
+import {PlaceCard} from '../../components/place-card/place-card';
+import {SvgSprite} from '../../components/svg-sprite/svg-sprite';
 
-function Main({hotels, cities, placesCount, user}: MainProps): JSX.Element {
+type Props = {
+  hotels: Hotel[];
+  cities: string[];
+  placesCount: number;
+  user: User;
+};
+
+export function Main({hotels, cities, placesCount, user}: Props): JSX.Element {
   const isEmptyPage: string = !hotels.length ? 'page__main--index-empty' : '';
-  const places = hotels.map((hotel: Hotel): JSX.Element =>
-    (
-      <PlaceCard
-        key={hotel.id}
-        template='cities'
-        isFavorite={hotel.isFavorite}
-        isPremium={hotel.isPremium}
-        previewImage={hotel.previewImage}
-        price={hotel.price}
-        title={hotel.title}
-        type={hotel.type}
-      />
-    )
-  );
 
   return (
     <>
@@ -34,18 +27,33 @@ function Main({hotels, cities, placesCount, user}: MainProps): JSX.Element {
           <NavigationMenu cities={cities}/>
           <div className="cities">
             {
-              places.length ?
+              hotels.length ?
                 <div className="cities__places-container container">
                   <section className="cities__places places">
                     <h2 className="visually-hidden">Places</h2>
                     <b className="places__found">{placesCount} places to stay in Amsterdam</b>
                     <Sorting />
                     <div className="cities__places-list places__list tabs__content">
-                      {places}
+                      {
+                        hotels.map((hotel) =>
+                          (
+                            <PlaceCard
+                              key={hotel.id}
+                              template='cities'
+                              isFavorite={hotel.isFavorite}
+                              isPremium={hotel.isPremium}
+                              previewImage={hotel.previewImage}
+                              price={hotel.price}
+                              title={hotel.title}
+                              type={hotel.type}
+                            />
+                          )
+                        )
+                      }
                     </div>
                   </section>
                   <div className="cities__right-section">
-                    <section className="cities__map map"></section>
+                    <section className="cities__map map" />
                   </div>
                 </div> :
                 <div className="cities__places-container cities__places-container--empty container">
@@ -55,7 +63,7 @@ function Main({hotels, cities, placesCount, user}: MainProps): JSX.Element {
                       <p className="cities__status-description">We could not find any property available at the moment in Dusseldorf</p>
                     </div>
                   </section>
-                  <div className="cities__right-section"></div>
+                  <div className="cities__right-section" />
                 </div>
             }
           </div>
@@ -64,5 +72,3 @@ function Main({hotels, cities, placesCount, user}: MainProps): JSX.Element {
     </>
   );
 }
-
-export default Main;

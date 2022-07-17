@@ -1,20 +1,16 @@
-import FavoriteLocation from '../../components/favorite-location/favorite-location';
-import FavoritesProps from './favorites.type';
-import Header from '../../components/header/header';
-import Footer from '../../components/footer/footer';
-import SvgSprite from '../../components/svg-sprite/svg-sprite';
+import {FavoritePlace} from '../../types/hotel.type';
+import {User} from '../../types/user.type';
+import {FavoriteLocation} from '../../components/favorite-location/favorite-location';
+import {Header} from '../../components/header/header';
+import {Footer} from '../../components/footer/footer';
+import {SvgSprite} from '../../components/svg-sprite/svg-sprite';
 
-function Favorites({user, locations}: FavoritesProps): JSX.Element {
-  const favoriteLocations = locations.map((location): JSX.Element =>
-    (
-      <FavoriteLocation
-        key={location.city}
-        city={location.city}
-        hotels={location.hotels}
-      />
-    )
-  );
+type Props = {
+  user: User;
+  locations: FavoritePlace[];
+};
 
+export function Favorites({user, locations}: Props): JSX.Element {
   return (
     <>
       <SvgSprite />
@@ -28,7 +24,17 @@ function Favorites({user, locations}: FavoritesProps): JSX.Element {
                 <section className="favorites">
                   <h1 className="favorites__title">Saved listing</h1>
                   <ul className="favorites__list">
-                    {favoriteLocations}
+                    {
+                      locations.map((location) =>
+                        (
+                          <FavoriteLocation
+                            key={location.city}
+                            city={location.city}
+                            hotels={location.hotels}
+                          />
+                        )
+                      )
+                    }
                   </ul>
                 </section> :
                 <section className="favorites favorites--empty">
@@ -46,5 +52,3 @@ function Favorites({user, locations}: FavoritesProps): JSX.Element {
     </>
   );
 }
-
-export default Favorites;

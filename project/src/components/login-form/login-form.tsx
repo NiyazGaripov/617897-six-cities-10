@@ -1,4 +1,4 @@
-function LoginForm(): JSX.Element {
+export function LoginForm(): JSX.Element {
   return (
     <form className="login__form form" action="#" method="post">
       <div className="login__input-wrapper form__input-wrapper">
@@ -13,5 +13,3 @@ function LoginForm(): JSX.Element {
     </form>
   );
 }
-
-export default LoginForm;
