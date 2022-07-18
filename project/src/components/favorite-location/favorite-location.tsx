@@ -1,7 +1,6 @@
 import {Link} from 'react-router-dom';
 import {Hotel} from '../../types/hotel.type';
 import {PlaceCard} from '../place-card/place-card';
-import {changeStringToLowerCase} from '../../utils/common';
 
 type Props = {
   city: string;
@@ -13,7 +12,7 @@ export function FavoriteLocation({city, hotels}: Props): JSX.Element {
     <li className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">
         <div className="locations__item">
-          <Link to={`/${changeStringToLowerCase(city)}`} className="locations__item-link">
+          <Link to={`/${city.toLowerCase()}`} className="locations__item-link">
             <span>{city}</span>
           </Link>
         </div>
