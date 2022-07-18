@@ -62,7 +62,7 @@ export function Property({isAuth, user, hotel, comments, nearbyHotels}: Props): 
                     (
                       <PlaceCard
                         key={nearbyHotel.id}
-                        template='cities'
+                        className='cities'
                         isFavorite={nearbyHotel.isFavorite}
                         isPremium={nearbyHotel.isPremium}
                         previewImage={nearbyHotel.previewImage}

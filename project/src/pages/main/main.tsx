@@ -39,7 +39,7 @@ export function Main({hotels, cities, placesCount, user}: Props): JSX.Element {
                           (
                             <PlaceCard
                               key={hotel.id}
-                              template='cities'
+                              className='cities'
                               isFavorite={hotel.isFavorite}
                               isPremium={hotel.isPremium}
                               previewImage={hotel.previewImage}

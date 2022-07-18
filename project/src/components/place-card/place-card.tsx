@@ -1,7 +1,7 @@
 import {Link} from 'react-router-dom';
 
 type Props = {
-  template: 'cities' | 'favorites';
+  className: string;
   isFavorite: boolean;
   isPremium: boolean;
   previewImage: string;
@@ -10,24 +10,23 @@ type Props = {
   type: string;
 };
 
-export function PlaceCard({template, isFavorite, isPremium, previewImage, price, title, type}: Props): JSX.Element {
+export function PlaceCard({className, isFavorite, isPremium, previewImage, price, title, type}: Props): JSX.Element {
   const isBookmarkActive: string = isFavorite ? 'place-card__bookmark-button--active' : '';
-  const citiesTemplate: string = template;
 
   return (
-    <article className={`${citiesTemplate}__card place-card`}>
+    <article className={`${className}__card place-card`}>
       {
         isPremium &&
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
       }
-      <div className={`${citiesTemplate}__image-wrapper place-card__image-wrapper`}>
+      <div className={`${className}__image-wrapper place-card__image-wrapper`}>
         <Link to="/offer/1">
           <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image" />
         </Link>
       </div>
-      <div className={`${citiesTemplate}__card-info place-card__info`}>
+      <div className={`${className}__card-info place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price} </b>

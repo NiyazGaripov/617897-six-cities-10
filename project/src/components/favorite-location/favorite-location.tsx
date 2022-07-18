@@ -23,7 +23,7 @@ export function FavoriteLocation({city, hotels}: Props): JSX.Element {
             (
               <PlaceCard
                 key={hotel.id}
-                template='favorites'
+                className='favorites'
                 isFavorite={hotel.isFavorite}
                 isPremium={hotel.isPremium}
                 previewImage={hotel.previewImage}
