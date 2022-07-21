@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import {HOTELS} from './mock-data/hotels.const';
-import {CITIES} from './mock-data/cities.const';
+import {HOTELS} from './mocks/hotels.const';
+import {CITIES} from './mocks/cities.const';
 import {App} from './components/app/app';
 
 const root = ReactDOM.createRoot(
