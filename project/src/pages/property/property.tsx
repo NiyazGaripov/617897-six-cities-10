@@ -1,7 +1,7 @@
 import {User} from '../../types/user.type';
 import {Hotel} from '../../types/hotel.type';
 import {Comment} from '../../types/comment.type';
-import {RATINGS} from '../../mock-data/raitings.const';
+import {RATINGS} from '../../mocks/raitings.const';
 import {Header} from '../../components/header/header';
 import {Gallery} from '../../components/gallery/gallery';
 import {PlaceCard} from '../../components/place-card/place-card';
@@ -62,13 +62,8 @@ export function Property({isAuth, user, hotel, comments, nearbyHotels}: Props): 
                     (
                       <PlaceCard
                         key={nearbyHotel.id}
-                        template='cities'
-                        isFavorite={nearbyHotel.isFavorite}
-                        isPremium={nearbyHotel.isPremium}
-                        previewImage={nearbyHotel.previewImage}
-                        price={nearbyHotel.price}
-                        title={nearbyHotel.title}
-                        type={nearbyHotel.type}
+                        hotel={nearbyHotel}
+                        className='cities'
                       />
                     )
                   )

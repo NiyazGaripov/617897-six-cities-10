@@ -1,9 +1,9 @@
 import {BrowserRouter, Route, Routes, Outlet } from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../constants';
-import {FAVORITE_LOCATIONS} from '../../mock-data/favorite-locations.const';
-import {HOTELS} from '../../mock-data/hotels.const';
-import {COMMENTS} from '../../mock-data/comments.const';
-import {CITIES} from '../../mock-data/cities.const';
+import {FAVORITE_LOCATIONS} from '../../mocks/favorite-locations.const';
+import {HOTELS} from '../../mocks/hotels.const';
+import {COMMENTS} from '../../mocks/comments.const';
+import {CITIES} from '../../mocks/cities.const';
 import {Hotel} from '../../types/hotel.type';
 import {User} from '../../types/user.type';
 import {Main} from '../../pages/main/main';

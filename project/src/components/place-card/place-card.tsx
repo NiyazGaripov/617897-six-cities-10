@@ -1,33 +1,35 @@
 import {Link} from 'react-router-dom';
+import {useState} from 'react';
+import {Hotel} from '../../types/hotel.type';
 
 type Props = {
-  template: 'cities' | 'favorites';
-  isFavorite: boolean;
-  isPremium: boolean;
-  previewImage: string;
-  price: number;
-  title: string;
-  type: string;
+  hotel: Hotel
+  className: string;
 };
 
-export function PlaceCard({template, isFavorite, isPremium, previewImage, price, title, type}: Props): JSX.Element {
+export function PlaceCard({hotel, className}: Props): JSX.Element {
+  const { id, isFavorite, isPremium, previewImage, price, title, type } = hotel;
   const isBookmarkActive: string = isFavorite ? 'place-card__bookmark-button--active' : '';
-  const citiesTemplate: string = template;
+  const [activeCardId, setActiveCard] = useState(id || null);
 
   return (
-    <article className={`${citiesTemplate}__card place-card`}>
+    <article
+      className={`${className}__card place-card`}
+      onMouseEnter={() => setActiveCard(activeCardId)}
+      onMouseLeave={() => setActiveCard(null)}
+    >
       {
         isPremium &&
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
       }
-      <div className={`${citiesTemplate}__image-wrapper place-card__image-wrapper`}>
+      <div className={`${className}__image-wrapper place-card__image-wrapper`}>
         <Link to="/offer/1">
           <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image" />
         </Link>
       </div>
-      <div className={`${citiesTemplate}__card-info place-card__info`}>
+      <div className={`${className}__card-info place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price} </b>
