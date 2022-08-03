@@ -41,7 +41,7 @@ export function Property({isAuth, user, hotel, comments, nearbyHotels}: Props): 
                 <PropertyCard hotel={hotel} />
 
                 <section className="property__reviews reviews">
-                  <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">1</span></h2>
+                  <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
                   <Reviews comments={comments} />
 
                   {
