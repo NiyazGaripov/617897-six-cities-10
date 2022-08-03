@@ -1,3 +1,4 @@
+import {useState} from 'react';
 import {Hotel} from '../../types/hotel.type';
 import {User} from '../../types/user.type';
 import {Header} from '../../components/header/header';
@@ -5,6 +6,7 @@ import {NavigationMenu} from '../../components/navigation-menu/navigation-menu';
 import {Sorting} from '../../components/sorting/sorting';
 import {PlaceCard} from '../../components/place-card/place-card';
 import {SvgSprite} from '../../components/svg-sprite/svg-sprite';
+import {Map} from '../../components/map/map';
 
 type Props = {
   hotels: Hotel[];
@@ -15,6 +17,7 @@ type Props = {
 
 export function Main({hotels, cities, placesCount, user}: Props): JSX.Element {
   const isEmptyPage: string = !hotels.length ? 'page__main--index-empty' : '';
+  const [activeHotelId, setActiveHotelId] = useState<number | null>(null);
 
   return (
     <>
@@ -41,6 +44,8 @@ export function Main({hotels, cities, placesCount, user}: Props): JSX.Element {
                               key={hotel.id}
                               hotel={hotel}
                               className='cities'
+                              onHotelCardEnter={() => setActiveHotelId(hotel.id)}
+                              onHotelCardLeave={() => setActiveHotelId(null)}
                             />
                           )
                         )
@@ -48,7 +53,7 @@ export function Main({hotels, cities, placesCount, user}: Props): JSX.Element {
                     </div>
                   </section>
                   <div className="cities__right-section">
-                    <section className="cities__map map" />
+                    <Map city={hotels[0].city} hotels={hotels} activeHotelId={activeHotelId}/>
                   </div>
                 </div> :
                 <div className="cities__places-container cities__places-container--empty container">
