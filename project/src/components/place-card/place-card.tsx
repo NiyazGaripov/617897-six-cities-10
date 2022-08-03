@@ -1,22 +1,22 @@
 import {Link} from 'react-router-dom';
-import {useState} from 'react';
 import {Hotel} from '../../types/hotel.type';
 
 type Props = {
   hotel: Hotel
   className: string;
+  onHotelCardEnter?: () => void;
+  onHotelCardLeave?: () => void;
 };
 
-export function PlaceCard({hotel, className}: Props): JSX.Element {
-  const { id, isFavorite, isPremium, previewImage, price, title, type } = hotel;
+export function PlaceCard({hotel, className, onHotelCardEnter, onHotelCardLeave}: Props): JSX.Element {
+  const { isFavorite, isPremium, previewImage, price, title, type } = hotel;
   const isBookmarkActive: string = isFavorite ? 'place-card__bookmark-button--active' : '';
-  const [activeCardId, setActiveCard] = useState(id || null);
 
   return (
     <article
       className={`${className}__card place-card`}
-      onMouseEnter={() => setActiveCard(activeCardId)}
-      onMouseLeave={() => setActiveCard(null)}
+      onMouseEnter={onHotelCardEnter}
+      onMouseLeave={onHotelCardLeave}
     >
       {
         isPremium &&
