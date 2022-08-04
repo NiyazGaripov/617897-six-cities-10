@@ -62,7 +62,7 @@ export function App(props: Props): JSX.Element {
               user={props.user}
               hotel={HOTELS[0]}
               comments={COMMENTS}
-              nearbyHotels={props.hotels}
+              nearbyHotels={props.hotels.slice().splice(2)}
             />
           }
         />
