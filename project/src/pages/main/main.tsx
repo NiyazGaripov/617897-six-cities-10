@@ -53,7 +53,12 @@ export function Main({hotels, cities, placesCount, user}: Props): JSX.Element {
                     </div>
                   </section>
                   <div className="cities__right-section">
-                    <Map city={hotels[0].city} hotels={hotels} activeHotelId={activeHotelId}/>
+                    <Map
+                      className='cities'
+                      city={hotels[0].city}
+                      hotels={hotels}
+                      activeHotelId={activeHotelId}
+                    />
                   </div>
                 </div> :
                 <div className="cities__places-container cities__places-container--empty container">
