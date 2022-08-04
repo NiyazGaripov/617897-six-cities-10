@@ -7,6 +7,7 @@ import 'leaflet/dist/leaflet.css';
 
 
 type Props = {
+  className: string;
   city: City;
   hotels: Hotel[];
   activeHotelId: number | null;
@@ -24,7 +25,7 @@ const activeCustomIcon = new Icon({
   iconAnchor: [MAP_ICON.ANCHOR, MAP_ICON.HEIGHT],
 });
 
-export function Map({city, hotels, activeHotelId}: Props): JSX.Element {
+export function Map({className, city, hotels, activeHotelId}: Props): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -49,7 +50,7 @@ export function Map({city, hotels, activeHotelId}: Props): JSX.Element {
 
   return (
     <section
-      className="cities__map map"
+      className={`${className}__map map`}
       style={{height: '1000px'}}
       ref={mapRef}
     />
