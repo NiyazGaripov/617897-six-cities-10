@@ -1,5 +1,6 @@
 import {Link} from 'react-router-dom';
 import {Hotel} from '../../types/hotel.type';
+import {transformRatingToPercentage} from '../../utils/common';
 
 type Props = {
   hotel: Hotel
@@ -9,7 +10,7 @@ type Props = {
 };
 
 export function PlaceCard({hotel, className, onHotelCardEnter, onHotelCardLeave}: Props): JSX.Element {
-  const { isFavorite, isPremium, previewImage, price, title, type } = hotel;
+  const { isFavorite, isPremium, previewImage, price, rating, title, type } = hotel;
   const isBookmarkActive: string = isFavorite ? 'place-card__bookmark-button--active' : '';
 
   return (
@@ -44,7 +45,7 @@ export function PlaceCard({hotel, className, onHotelCardEnter, onHotelCardLeave}
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: '80%'}}></span>
+            <span style={{width: transformRatingToPercentage(rating)}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

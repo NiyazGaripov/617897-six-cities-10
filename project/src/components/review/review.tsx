@@ -1,4 +1,5 @@
 import {Comment} from '../../types/comment.type';
+import {transformRatingToPercentage} from '../../utils/common';
 
 type Props = {
   comment: Comment;
@@ -16,7 +17,7 @@ export function Review({comment}: Props): JSX.Element {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{width: '80%'}}></span>
+            <span style={{width: transformRatingToPercentage(comment.rating)}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
