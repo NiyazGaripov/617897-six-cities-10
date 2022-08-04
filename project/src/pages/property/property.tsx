@@ -4,13 +4,13 @@ import {Comment} from '../../types/comment.type';
 import {RATINGS} from '../../mocks/raitings.const';
 import {Header} from '../../components/header/header';
 import {Gallery} from '../../components/gallery/gallery';
-import {PlaceCard} from '../../components/place-card/place-card';
 import {PropertyCard} from '../../components/property-card/property-card';
 import {Reviews} from '../../components/reviews/reviews';
 import {ReviewForm} from '../../components/review-form/review-form';
 import {SvgSprite} from '../../components/svg-sprite/svg-sprite';
 import {Map} from '../../components/map/map';
 import {useState} from 'react';
+import {Places} from '../../components/places/places';
 
 type Props = {
   isAuth: boolean;
@@ -63,24 +63,14 @@ export function Property({isAuth, user, hotel, comments, nearbyHotels}: Props): 
             />
           </section>
           <div className="container">
-            <section className="near-places places">
+            <Places
+              places={nearbyHotels}
+              classes={['near-places', 'near-places__list']}
+              onPlaceCardEnter={(id: number) => setActiveHotelId(id)}
+              onPlaceCardLeave={() => setActiveHotelId(null)}
+            >
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
-              <div className="near-places__list places__list">
-                {
-                  nearbyHotels.map((nearbyHotel) =>
-                    (
-                      <PlaceCard
-                        key={nearbyHotel.id}
-                        hotel={nearbyHotel}
-                        className='cities'
-                        onHotelCardEnter={() => setActiveHotelId(nearbyHotel.id)}
-                        onHotelCardLeave={() => setActiveHotelId(null)}
-                      />
-                    )
-                  )
-                }
-              </div>
-            </section>
+            </Places>
           </div>
         </main>
       </div>
