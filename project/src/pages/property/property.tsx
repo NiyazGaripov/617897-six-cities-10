@@ -9,6 +9,8 @@ import {PropertyCard} from '../../components/property-card/property-card';
 import {Reviews} from '../../components/reviews/reviews';
 import {ReviewForm} from '../../components/review-form/review-form';
 import {SvgSprite} from '../../components/svg-sprite/svg-sprite';
+import {Map} from '../../components/map/map';
+import {useState} from 'react';
 
 type Props = {
   isAuth: boolean;
@@ -19,6 +21,8 @@ type Props = {
 };
 
 export function Property({isAuth, user, hotel, comments, nearbyHotels}: Props): JSX.Element {
+  const [activeHotelId, setActiveHotelId] = useState<number | null>(null);
+
   return (
     <>
       <SvgSprite />
@@ -51,7 +55,12 @@ export function Property({isAuth, user, hotel, comments, nearbyHotels}: Props): 
                 </section>
               </div>
             </div>
-            <section className="property__map map" />
+            <Map
+              className='property'
+              city={nearbyHotels[0].city}
+              hotels={nearbyHotels}
+              activeHotelId={activeHotelId}
+            />
           </section>
           <div className="container">
             <section className="near-places places">
@@ -64,6 +73,8 @@ export function Property({isAuth, user, hotel, comments, nearbyHotels}: Props): 
                         key={nearbyHotel.id}
                         hotel={nearbyHotel}
                         className='cities'
+                        onHotelCardEnter={() => setActiveHotelId(nearbyHotel.id)}
+                        onHotelCardLeave={() => setActiveHotelId(null)}
                       />
                     )
                   )
