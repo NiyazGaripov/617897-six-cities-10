@@ -1,22 +1,23 @@
 import {Link} from 'react-router-dom';
 import {Hotel} from '../../types/hotel.type';
+import {transformRatingToPercentage} from '../../utils/common';
 
 type Props = {
   hotel: Hotel
   className: string;
-  onHotelCardEnter?: () => void;
-  onHotelCardLeave?: () => void;
+  onPlaceCardEnter?: (id: number) => void;
+  onPlaceCardLeave?: () => void;
 };
 
-export function PlaceCard({hotel, className, onHotelCardEnter, onHotelCardLeave}: Props): JSX.Element {
-  const { isFavorite, isPremium, previewImage, price, title, type } = hotel;
+export function PlaceCard({hotel, className, onPlaceCardEnter, onPlaceCardLeave}: Props): JSX.Element {
+  const { id, isFavorite, isPremium, previewImage, price, rating, title, type } = hotel;
   const isBookmarkActive: string = isFavorite ? 'place-card__bookmark-button--active' : '';
 
   return (
     <article
       className={`${className}__card place-card`}
-      onMouseEnter={onHotelCardEnter}
-      onMouseLeave={onHotelCardLeave}
+      onMouseEnter={() => onPlaceCardEnter?.(id)}
+      onMouseLeave={() => onPlaceCardLeave?.()}
     >
       {
         isPremium &&
@@ -44,7 +45,7 @@ export function PlaceCard({hotel, className, onHotelCardEnter, onHotelCardLeave}
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: '80%'}}></span>
+            <span style={{width: transformRatingToPercentage(rating)}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

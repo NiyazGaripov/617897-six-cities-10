@@ -13,4 +13,16 @@ export const COMMENTS: Comment[] = [
       name: 'Max',
     },
   },
+  {
+    comment: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos eveniet ipsam nisi, non optio recusandae tempore! Autem consectetur, cumque eligendi expedita harum provident similique suscipit. Asperiores cum explicabo quidem tempore.',
+    date: new Date().toISOString(),
+    id: 2,
+    rating: 4.5,
+    author: {
+      avatarUrl: 'img/avatar.svg',
+      id: 10,
+      isPro: false,
+      name: 'Keks',
+    },
+  },
 ];

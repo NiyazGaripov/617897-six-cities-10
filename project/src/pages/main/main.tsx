@@ -4,9 +4,9 @@ import {User} from '../../types/user.type';
 import {Header} from '../../components/header/header';
 import {NavigationMenu} from '../../components/navigation-menu/navigation-menu';
 import {Sorting} from '../../components/sorting/sorting';
-import {PlaceCard} from '../../components/place-card/place-card';
 import {SvgSprite} from '../../components/svg-sprite/svg-sprite';
 import {Map} from '../../components/map/map';
+import {Places} from '../../components/places/places';
 
 type Props = {
   hotels: Hotel[];
@@ -32,28 +32,24 @@ export function Main({hotels, cities, placesCount, user}: Props): JSX.Element {
             {
               hotels.length ?
                 <div className="cities__places-container container">
-                  <section className="cities__places places">
+                  <Places
+                    places={hotels}
+                    classes={['cities__places', 'cities__places-list']}
+                    onPlaceCardEnter={(id: number) => setActiveHotelId(id)}
+                    onPlaceCardLeave={() => setActiveHotelId(null)}
+                  >
                     <h2 className="visually-hidden">Places</h2>
                     <b className="places__found">{placesCount} places to stay in Amsterdam</b>
                     <Sorting />
-                    <div className="cities__places-list places__list tabs__content">
-                      {
-                        hotels.map((hotel) =>
-                          (
-                            <PlaceCard
-                              key={hotel.id}
-                              hotel={hotel}
-                              className='cities'
-                              onHotelCardEnter={() => setActiveHotelId(hotel.id)}
-                              onHotelCardLeave={() => setActiveHotelId(null)}
-                            />
-                          )
-                        )
-                      }
-                    </div>
-                  </section>
+                  </Places>
+
                   <div className="cities__right-section">
-                    <Map city={hotels[0].city} hotels={hotels} activeHotelId={activeHotelId}/>
+                    <Map
+                      className='cities'
+                      city={hotels[0].city}
+                      hotels={hotels}
+                      activeHotelId={activeHotelId}
+                    />
                   </div>
                 </div> :
                 <div className="cities__places-container cities__places-container--empty container">
