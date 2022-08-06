@@ -65,7 +65,8 @@ export function Property({isAuth, user, hotel, comments, nearbyHotels}: Props): 
           <div className="container">
             <Places
               places={nearbyHotels}
-              classes={['near-places', 'near-places__list']}
+              sectionClassName='near-places'
+              placesClassName='near-places__list'
               onPlaceCardEnter={(id: number) => setActiveHotelId(id)}
               onPlaceCardLeave={() => setActiveHotelId(null)}
             >

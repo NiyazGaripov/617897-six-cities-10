@@ -12,12 +12,13 @@ type Props = {
 export function PlaceCard({hotel, className, onPlaceCardEnter, onPlaceCardLeave}: Props): JSX.Element {
   const { id, isFavorite, isPremium, previewImage, price, rating, title, type } = hotel;
   const isBookmarkActive: string = isFavorite ? 'place-card__bookmark-button--active' : '';
+  const handleCardMouseEnter = () => onPlaceCardEnter?.(id);
 
   return (
     <article
       className={`${className}__card place-card`}
-      onMouseEnter={() => onPlaceCardEnter?.(id)}
-      onMouseLeave={() => onPlaceCardLeave?.()}
+      onMouseEnter={handleCardMouseEnter}
+      onMouseLeave={onPlaceCardLeave}
     >
       {
         isPremium &&

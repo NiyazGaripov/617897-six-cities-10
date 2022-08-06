@@ -34,7 +34,6 @@ export function Main({hotels, cities, placesCount, user}: Props): JSX.Element {
                 <div className="cities__places-container container">
                   <Places
                     places={hotels}
-                    classes={['cities__places', 'cities__places-list']}
                     onPlaceCardEnter={(id: number) => setActiveHotelId(id)}
                     onPlaceCardLeave={() => setActiveHotelId(null)}
                   >
