@@ -10,7 +10,7 @@ export function Login(): JSX.Element {
       <SvgSprite />
 
       <div className="page page--gray page--login">
-        <Header user={{email: '', favoritePlacesCount: 0}} />
+        <Header />
 
         <main className="page__main page__main--login">
           <div className="page__login-container container">
