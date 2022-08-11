@@ -1,7 +1,8 @@
-import {User} from '../../types/user.type';
-import {Hotel} from '../../types/hotel.type';
+import {useState} from 'react';
+import {useParams} from 'react-router-dom';
 import {Comment} from '../../types/comment.type';
 import {RATINGS} from '../../mocks/raitings.const';
+import {useAppSelector} from '../../hooks';
 import {Header} from '../../components/header/header';
 import {Gallery} from '../../components/gallery/gallery';
 import {PropertyCard} from '../../components/property-card/property-card';
@@ -9,40 +10,43 @@ import {Reviews} from '../../components/reviews/reviews';
 import {ReviewForm} from '../../components/review-form/review-form';
 import {SvgSprite} from '../../components/svg-sprite/svg-sprite';
 import {Map} from '../../components/map/map';
-import {useState} from 'react';
 import {Places} from '../../components/places/places';
+import {Hotel} from '../../types/hotel.type';
 
 type Props = {
-  isAuth: boolean;
-  user: User;
-  hotel: Hotel;
   comments: Comment[];
-  nearbyHotels: Hotel[];
 };
 
-export function Property({isAuth, user, hotel, comments, nearbyHotels}: Props): JSX.Element {
+type RouteParams = {
+  id: string;
+}
+
+export function Property({comments}: Props): JSX.Element {
+  const {isAuth, places, city} = useAppSelector((state) => state);
   const [activeHotelId, setActiveHotelId] = useState<number | null>(null);
+  const { id } = useParams<RouteParams>();
+  const nearbyHotels = places.slice().splice(1);
+  let selectPlace;
+  if (id) {
+    selectPlace = places.find((place) => place.id === +id);
+  }
 
   return (
     <>
       <SvgSprite />
 
       <div className="page">
-        {
-          isAuth ?
-            <Header user={user} /> :
-            <Header user={{email: '', favoritePlacesCount: 0}} />
-        }
+        <Header />
 
         <main className="page__main page__main--property">
           <section className="property">
             <div className="property__gallery-container container">
-              <Gallery images={hotel.images} />
+              <Gallery images={(selectPlace?.images) as string[]} />
             </div>
 
             <div className="property__container container">
               <div className="property__wrapper">
-                <PropertyCard hotel={hotel} />
+                <PropertyCard hotel={selectPlace as Hotel} />
 
                 <section className="property__reviews reviews">
                   <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
@@ -57,8 +61,8 @@ export function Property({isAuth, user, hotel, comments, nearbyHotels}: Props): 
             </div>
             <Map
               className='property'
-              city={nearbyHotels[0].city}
-              hotels={nearbyHotels}
+              city={city}
+              places={nearbyHotels}
               activeHotelId={activeHotelId}
             />
           </section>
@@ -67,7 +71,7 @@ export function Property({isAuth, user, hotel, comments, nearbyHotels}: Props): 
               places={nearbyHotels}
               sectionClassName='near-places'
               placesClassName='near-places__list'
-              onPlaceCardEnter={(id: number) => setActiveHotelId(id)}
+              onPlaceCardEnter={(placeId: number) => setActiveHotelId(placeId)}
               onPlaceCardLeave={() => setActiveHotelId(null)}
             >
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
