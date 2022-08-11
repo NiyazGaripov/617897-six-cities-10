@@ -5,11 +5,10 @@ import {useMap} from '../../hooks/useMap';
 import {MAP_ICON} from '../../constants';
 import 'leaflet/dist/leaflet.css';
 
-
 type Props = {
   className: string;
   city: City;
-  hotels: Hotel[];
+  places: Hotel[];
   activeHotelId: number | null;
 };
 
@@ -25,13 +24,13 @@ const activeCustomIcon = new Icon({
   iconAnchor: [MAP_ICON.ANCHOR, MAP_ICON.HEIGHT],
 });
 
-export function Map({className, city, hotels, activeHotelId}: Props): JSX.Element {
+export function Map({className, city, places, activeHotelId}: Props): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
   useEffect(() => {
     if (map) {
-      hotels.forEach((hotel) => {
+      places.forEach((hotel) => {
         const marker = new Marker({
           lat: hotel.location.latitude,
           lng: hotel.location.longitude
@@ -46,7 +45,19 @@ export function Map({className, city, hotels, activeHotelId}: Props): JSX.Elemen
           .addTo(map);
       });
     }
-  }, [map, hotels, activeHotelId]);
+  }, [map, places, activeHotelId]);
+
+  useEffect(() => {
+    if (map) {
+      map.flyTo(
+        [city.location.latitude, city.location.longitude],
+        10,
+        {
+          duration: 2
+        }
+      );
+    }
+  }, [city, map]);
 
   return (
     <section
