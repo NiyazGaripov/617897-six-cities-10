@@ -157,11 +157,11 @@ export const HOTELS: Hotel[] = [
     bedrooms: 2,
     city: {
       location: {
-        latitude: 52.370216,
-        longitude: 4.895168,
+        latitude: 48.864716,
+        longitude: 2.349014,
         zoom: 10,
       },
-      name: 'Amsterdam',
+      name: 'Paris',
     },
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: [
@@ -180,8 +180,8 @@ export const HOTELS: Hotel[] = [
     isFavorite: true,
     isPremium: false,
     location: {
-      latitude: 52.4109553943508,
-      longitude: 4.889309666406198,
+      latitude: 48.864716,
+      longitude: 2.349014,
       zoom: 8,
     },
     maxAdults: 2,
