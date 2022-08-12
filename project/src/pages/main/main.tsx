@@ -11,7 +11,8 @@ import {Places} from '../../components/places/places';
 
 export function Main(): JSX.Element {
   const dispatch = useAppDispatch();
-  const {places, city} = useAppSelector((state) => state);
+  const places = useAppSelector((state) => state.places);
+  const city = useAppSelector((state) => state.city);
   const [activeHotelId, setActiveHotelId] = useState<number | null>(null);
   const isEmptyPage: string = !places.length ? 'page__main--index-empty' : '';
   const filteredPlaces = HOTELS.filter((place) => place.city.name === city.name);

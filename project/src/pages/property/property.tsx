@@ -22,7 +22,9 @@ type RouteParams = {
 }
 
 export function Property({comments}: Props): JSX.Element {
-  const {isAuth, places, city} = useAppSelector((state) => state);
+  const isAuth = useAppSelector((state) => state.isAuth);
+  const places = useAppSelector((state) => state.places);
+  const city = useAppSelector((state) => state.city);
   const [activeHotelId, setActiveHotelId] = useState<number | null>(null);
   const { id } = useParams<RouteParams>();
   const nearbyHotels = places.slice().splice(1);
