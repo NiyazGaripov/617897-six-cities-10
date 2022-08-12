@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import {HOTELS} from './mocks/hotels.const';
-import {CITIES} from './mocks/cities.const';
+import {Provider} from 'react-redux';
+import {store} from './store';
 import {App} from './components/app/app';
 
 const root = ReactDOM.createRoot(
@@ -10,11 +10,8 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App
-      hotels={HOTELS}
-      cities={CITIES}
-      placesCount={312}
-      user={{email: 'Oliver.conner@gmail.com', favoritePlacesCount: 5}}
-    />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
 );

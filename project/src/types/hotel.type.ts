@@ -34,8 +34,3 @@ export type Hotel = {
   title: string;
   type: string;
 };
-
-export type FavoritePlace = {
-  city: string;
-  hotels: Hotel[];
-};

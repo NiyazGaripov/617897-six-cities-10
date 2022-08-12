@@ -1,36 +1,32 @@
-import {FavoritePlace} from '../../types/hotel.type';
-import {User} from '../../types/user.type';
+import {HOTELS} from '../../mocks/hotels.const';
 import {FavoriteLocation} from '../../components/favorite-location/favorite-location';
 import {Header} from '../../components/header/header';
 import {Footer} from '../../components/footer/footer';
 import {SvgSprite} from '../../components/svg-sprite/svg-sprite';
 
-type Props = {
-  user: User;
-  locations: FavoritePlace[];
-};
+export function Favorites(): JSX.Element {
+  const favoritePlaces = HOTELS.filter((hotel) => hotel.isFavorite);
 
-export function Favorites({user, locations}: Props): JSX.Element {
   return (
     <>
       <SvgSprite />
 
       <div className="page">
-        <Header user={user} />
+        <Header />
         <main className="page__main page__main--favorites">
           <div className="page__favorites-container container">
             {
-              locations.length ?
+              favoritePlaces.length ?
                 <section className="favorites">
                   <h1 className="favorites__title">Saved listing</h1>
                   <ul className="favorites__list">
                     {
-                      locations.map((location) =>
+                      favoritePlaces.map((favoritePlace) =>
                         (
                           <FavoriteLocation
-                            key={location.city}
-                            city={location.city}
-                            hotels={location.hotels}
+                            key={favoritePlace.id}
+                            city={favoritePlace.city}
+                            hotels={favoritePlaces.filter((place) => place.city.name === favoritePlace.city.name)}
                           />
                         )
                       )

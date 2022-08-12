@@ -4,13 +4,21 @@ import {Hotel} from '../../types/hotel.type';
 
 type Props = PropsWithChildren<{
   places: Hotel[];
-  classes: string[];
+  sectionClassName?: string;
+  placesClassName?: string;
   onPlaceCardEnter?: (id: number) => void;
   onPlaceCardLeave?: () => void;
 }>;
 
-export function Places({places, children, classes, onPlaceCardEnter, onPlaceCardLeave}: Props): JSX.Element {
-  const [sectionClassName, placesClassName] = classes;
+export function Places(
+  {
+    places,
+    children,
+    sectionClassName = 'cities__places',
+    placesClassName = 'cities__places-list',
+    onPlaceCardEnter,
+    onPlaceCardLeave
+  }: Props): JSX.Element {
 
   return (
     <section className={`${sectionClassName} places`}>
