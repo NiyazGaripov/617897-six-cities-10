@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {fillRentalPlaces} from '../../store/action';
+import {setRentalPlaces} from '../../store/action';
 import {HOTELS} from '../../mocks/hotels.const';
 import {Header} from '../../components/header/header';
 import {NavigationMenu} from '../../components/navigation-menu/navigation-menu';
@@ -18,7 +18,7 @@ export function Main(): JSX.Element {
   const filteredPlaces = HOTELS.filter((place) => place.city.name === city.name);
 
   useEffect(() => {
-    dispatch(fillRentalPlaces(filteredPlaces));
+    dispatch(setRentalPlaces(filteredPlaces));
   }, [city]);
 
   return (

@@ -1,6 +1,6 @@
 import {createReducer} from '@reduxjs/toolkit';
 import {HOTELS} from '../mocks/hotels.const';
-import {changeCity, fillRentalPlaces} from './action';
+import {setCity, setRentalPlaces} from './action';
 import {AuthorizationStatus} from '../constants';
 
 const DEFAULT_CITY = {
@@ -24,10 +24,10 @@ const initialState = {
 
 export const reducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(changeCity, (state, action) => {
+    .addCase(setCity, (state, action) => {
       state.city = action.payload;
     })
-    .addCase(fillRentalPlaces, (state, action) => {
+    .addCase(setRentalPlaces, (state, action) => {
       state.places = action.payload;
     });
 });
