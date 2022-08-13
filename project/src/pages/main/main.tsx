@@ -8,17 +8,20 @@ import {Sorting} from '../../components/sorting/sorting';
 import {SvgSprite} from '../../components/svg-sprite/svg-sprite';
 import {Map} from '../../components/map/map';
 import {Places} from '../../components/places/places';
+import {sortPlaces} from '../../utils/common';
 
 export function Main(): JSX.Element {
   const dispatch = useAppDispatch();
-  const places = useAppSelector((state) => state.places);
   const city = useAppSelector((state) => state.city);
+  const activeSortingType = useAppSelector((state) => state.activeSortingType);
   const [activeHotelId, setActiveHotelId] = useState<number | null>(null);
+  const places = HOTELS.filter((place) => place.city.name === city.name);
   const isEmptyPage: string = !places.length ? 'page__main--index-empty' : '';
-  const filteredPlaces = HOTELS.filter((place) => place.city.name === city.name);
+
+  sortPlaces(places, activeSortingType);
 
   useEffect(() => {
-    dispatch(setRentalPlaces(filteredPlaces));
+    dispatch(setRentalPlaces(places));
   }, [city]);
 
   return (
@@ -32,23 +35,26 @@ export function Main(): JSX.Element {
           <NavigationMenu activeCity={city} />
           <div className="cities">
             {
-              filteredPlaces.length ?
+              places.length ?
                 <div className="cities__places-container container">
                   <Places
-                    places={filteredPlaces}
+                    places={places}
                     onPlaceCardEnter={(id: number) => setActiveHotelId(id)}
                     onPlaceCardLeave={() => setActiveHotelId(null)}
                   >
                     <h2 className="visually-hidden">Places</h2>
-                    <b className="places__found">{filteredPlaces.length} places to stay in {city.name}</b>
-                    <Sorting />
+                    <b className="places__found">{places.length} places to stay in {city.name}</b>
+                    <Sorting
+                      activeSortingType={activeSortingType}
+                      city={city}
+                    />
                   </Places>
 
                   <div className="cities__right-section">
                     <Map
                       className='cities'
                       city={city}
-                      places={filteredPlaces}
+                      places={places}
                       activeHotelId={activeHotelId}
                     />
                   </div>
