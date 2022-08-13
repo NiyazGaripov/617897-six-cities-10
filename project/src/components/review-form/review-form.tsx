@@ -16,7 +16,7 @@ export function ReviewForm({ratings}: Props): JSX.Element {
     review: '',
   });
 
-  const formFieldChangeHandler = (name: string, value: number | string) => {
+  const handleFormFieldChange = (name: string, value: number | string) => {
     setFormData({...formData, [name]: value});
   };
 
@@ -35,7 +35,7 @@ export function ReviewForm({ratings}: Props): JSX.Element {
                   id={rating.id}
                   type="radio"
                   onClick={({currentTarget}) => {
-                    formFieldChangeHandler(currentTarget.name, rating.value);
+                    handleFormFieldChange(currentTarget.name, rating.value);
                   }}
                 />
                 <label htmlFor={rating.id} className="reviews__rating-label form__rating-label" title={rating.title}>
@@ -57,7 +57,7 @@ export function ReviewForm({ratings}: Props): JSX.Element {
         value={formData.review}
         onChange={(evt: ChangeEvent<HTMLTextAreaElement>) => {
           const {name, value} = evt.target;
-          formFieldChangeHandler(name, value);
+          handleFormFieldChange(name, value);
         }}
       />
       <div className="reviews__button-wrapper">
