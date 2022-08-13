@@ -21,7 +21,7 @@ export function NavigationMenu({activeCity}: Props): JSX.Element {
                 <li className="locations__item" key={city.name}>
                   <NavLink
                     to={`/${city.name.toLowerCase()}`}
-                    className={() => city.name === activeCity.name ? 'locations__item-link tabs__item--active' : 'locations__item-link tabs__item'}
+                    className={`locations__item-link tabs__item ${city.name === activeCity.name && 'tabs__item--active'}`}
                     onClick={() => dispatch(setCity(city))}
                   >
                     <span>{city.name}</span>
