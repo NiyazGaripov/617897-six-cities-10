@@ -1,6 +1,6 @@
 import {NavLink} from 'react-router-dom';
 import {useAppDispatch} from '../../hooks';
-import {changeCity} from '../../store/action';
+import {setCity} from '../../store/action';
 import {CITIES} from '../../mocks/cities.const';
 import {City} from '../../types/hotel.type';
 
@@ -21,8 +21,8 @@ export function NavigationMenu({activeCity}: Props): JSX.Element {
                 <li className="locations__item" key={city.name}>
                   <NavLink
                     to={`/${city.name.toLowerCase()}`}
-                    className={() => city.name === activeCity.name ? 'locations__item-link tabs__item--active' : 'locations__item-link tabs__item'}
-                    onClick={() => dispatch(changeCity(city))}
+                    className={`locations__item-link tabs__item ${city.name === activeCity.name && 'tabs__item--active'}`}
+                    onClick={() => dispatch(setCity(city))}
                   >
                     <span>{city.name}</span>
                   </NavLink>

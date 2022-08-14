@@ -3,7 +3,8 @@ import {useAppSelector} from '../../hooks';
 import {AppRoute, AuthorizationStatus} from '../../constants';
 
 export function Header(): JSX.Element {
-  const {isAuth, user} = useAppSelector((state) => state);
+  const isAuth = useAppSelector((state) => state.isAuth);
+  const user = useAppSelector((state) => state.user);
 
   return (
     <header className="header">

@@ -22,3 +22,10 @@ export const MAP_ICON = {
   HEIGHT: 39,
   ANCHOR: 13.5,
 };
+
+export const SortingType = {
+  POPULAR: 'Popular',
+  LOW_TO_HIGH: 'Price: low to high',
+  HIGH_TO_LOW: 'Price: high to low',
+  TOP_RATED: 'Top rated first',
+};
