@@ -4,7 +4,6 @@ import {AuthorizationStatus, SortingType} from '../constants';
 import {HOTELS} from '../mocks/hotels.const';
 import {User} from '../types/user.type';
 import {City, Hotel} from '../types/hotel.type';
-import {SortingOption} from '../types/sorting.type';
 
 const DEFAULT_CITY = {
   location: {
@@ -20,7 +19,7 @@ type InitialState = {
   user: User,
   city: City,
   places: Hotel[],
-  activeSortingType: SortingOption,
+  activeSortingType: string,
 }
 
 const initialState: InitialState = {
@@ -30,8 +29,8 @@ const initialState: InitialState = {
     favoritePlacesCount: 0,
   },
   city: DEFAULT_CITY,
-  places: HOTELS.filter((place) => place.city.name === DEFAULT_CITY.name),
-  activeSortingType: SortingType.POPULAR,
+  places: HOTELS,
+  activeSortingType: SortingType.Popular,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
