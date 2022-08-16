@@ -1,6 +1,6 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AxiosInstance} from 'axios';
-import {loadFavoritePlaces, loadPlaces, requireAuthorization, setDataLoadingStatus} from './action';
+import {loadFavoritePlaces, loadPlaces, requireAuthorization, setDataLoadingStatus} from './actions';
 import {AppDispatch, State} from '../types/state';
 import {Hotel} from '../types/hotel.type';
 import {APIRoute, AuthorizationStatus, DataLoadingStatus} from '../constants';

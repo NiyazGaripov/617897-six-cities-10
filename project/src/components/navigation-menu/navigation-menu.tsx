@@ -1,6 +1,6 @@
 import {NavLink} from 'react-router-dom';
 import {useAppDispatch} from '../../hooks';
-import {setCity} from '../../store/action';
+import {setCity} from '../../store/actions';
 import {CITIES} from '../../mocks/cities.const';
 import {City} from '../../types/hotel.type';
 
