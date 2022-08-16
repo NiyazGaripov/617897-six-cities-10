@@ -29,3 +29,17 @@ export enum SortingType {
   HighToLow = 'Price: high to low',
   TopRated = 'Top rated first',
 }
+
+export enum APIRoute {
+  Hotels = '/hotels',
+  Favorites = '/favorite',
+  Login = '/login',
+  Logout = '/logout',
+}
+
+export enum DataLoadingStatus {
+  None = 'none',
+  Pending = 'pending',
+  Fulfilled = 'fulfilled',
+  Rejected = 'rejected',
+}
