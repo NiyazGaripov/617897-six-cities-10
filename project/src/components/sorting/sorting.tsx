@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 import {useAppDispatch} from '../../hooks';
-import {setSortingType} from '../../store/action';
+import {setSortingType} from '../../store/actions';
 import {SortingType} from '../../constants';
 import {City} from '../../types/hotel.type';
 
@@ -13,7 +13,7 @@ export function Sorting({activeSortingType, city}: Props): JSX.Element {
   const dispatch = useAppDispatch();
   const [isSortingOpen, toggleSorting] = useState<boolean>(false);
 
-  const handleSortingTypeChange = (sortingType: string) => {
+  const handleSortingTypeChange = (sortingType: SortingType) => {
     toggleSorting(!isSortingOpen);
     dispatch(setSortingType(sortingType));
   };

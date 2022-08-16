@@ -22,7 +22,7 @@ type RouteParams = {
 }
 
 export function Property({comments}: Props): JSX.Element {
-  const isAuth = useAppSelector((state) => state.isAuth);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const places = useAppSelector((state) => state.places);
   const city = useAppSelector((state) => state.city);
   const [activeHotelId, setActiveHotelId] = useState<number | null>(null);
@@ -55,7 +55,7 @@ export function Property({comments}: Props): JSX.Element {
                   <Reviews comments={comments} />
 
                   {
-                    isAuth &&
+                    authorizationStatus &&
                     <ReviewForm ratings={RATINGS} />
                   }
                 </section>

@@ -1,11 +1,15 @@
-import {HOTELS} from '../../mocks/hotels.const';
+import {store} from '../../store';
+import {fetchFavoritePlacesAction} from '../../store/api-actions';
+import {useAppSelector} from '../../hooks';
 import {FavoriteLocation} from '../../components/favorite-location/favorite-location';
 import {Header} from '../../components/header/header';
 import {Footer} from '../../components/footer/footer';
 import {SvgSprite} from '../../components/svg-sprite/svg-sprite';
 
+store.dispatch(fetchFavoritePlacesAction());
+
 export function Favorites(): JSX.Element {
-  const favoritePlaces = HOTELS.filter((hotel) => hotel.isFavorite);
+  const favoritePlaces = useAppSelector((state) => state.favoritePlaces);
 
   return (
     <>
