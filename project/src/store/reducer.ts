@@ -1,10 +1,15 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {setCity, setRentalPlaces, setSortingType} from './action';
-import {AuthorizationStatus, SortingType} from '../constants';
-import {HOTELS} from '../mocks/hotels.const';
+import {
+  loadFavoritePlaces,
+  loadPlaces,
+  requireAuthorization,
+  setCity, setDataLoadingStatus,
+  setRentalPlaces,
+  setSortingType
+} from './actions';
+import {AuthorizationStatus, DataLoadingStatus, SortingType} from '../constants';
 import {User} from '../types/user.type';
 import {City, Hotel} from '../types/hotel.type';
-import {SortingOption} from '../types/sorting.type';
 
 const DEFAULT_CITY = {
   location: {
@@ -16,22 +21,26 @@ const DEFAULT_CITY = {
 };
 
 type InitialState = {
-  isAuth: string,
+  authorizationStatus: AuthorizationStatus,
   user: User,
   city: City,
   places: Hotel[],
-  activeSortingType: SortingOption,
+  favoritePlaces: Hotel[],
+  activeSortingType: SortingType,
+  dataLoadingStatus: DataLoadingStatus,
 }
 
 const initialState: InitialState = {
-  isAuth: AuthorizationStatus.NoAuth,
+  authorizationStatus: AuthorizationStatus.Unknown,
   user: {
     email: '',
     favoritePlacesCount: 0,
   },
   city: DEFAULT_CITY,
-  places: HOTELS.filter((place) => place.city.name === DEFAULT_CITY.name),
-  activeSortingType: SortingType.POPULAR,
+  places: [],
+  favoritePlaces: [],
+  activeSortingType: SortingType.Popular,
+  dataLoadingStatus: DataLoadingStatus.None,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -44,5 +53,17 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setSortingType, (state, action) => {
       state.activeSortingType = action.payload;
+    })
+    .addCase(loadPlaces, (state, action) => {
+      state.places = action.payload;
+    })
+    .addCase(loadFavoritePlaces, (state, action) => {
+      state.places = action.payload;
+    })
+    .addCase(requireAuthorization, (state, action) => {
+      state.authorizationStatus = action.payload;
+    })
+    .addCase(setDataLoadingStatus, (state, action) => {
+      state.dataLoadingStatus = action.payload;
     });
 });

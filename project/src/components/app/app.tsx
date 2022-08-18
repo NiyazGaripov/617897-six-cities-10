@@ -1,5 +1,6 @@
 import {BrowserRouter, Route, Routes, Outlet} from 'react-router-dom';
-import {AppRoute, AuthorizationStatus} from '../../constants';
+import {AppRoute, DataLoadingStatus} from '../../constants';
+import {useAppSelector} from '../../hooks';
 import {COMMENTS} from '../../mocks/comments.const';
 import {CITIES} from '../../mocks/cities.const';
 import {Main} from '../../pages/main/main';
@@ -8,8 +9,18 @@ import {Favorites} from '../../pages/favorites/favorites';
 import {Property} from '../../pages/property/property';
 import {NotFound} from '../../pages/not-found/not-found';
 import {PrivateRoute} from '../private-route/private-route';
+import {Loading} from '../loading/loading';
 
 export function App(): JSX.Element {
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const dataLoadingStatus = useAppSelector((state) => state.dataLoadingStatus);
+
+  if (dataLoadingStatus === DataLoadingStatus.Pending) {
+    return (
+      <Loading />
+    );
+  }
+
   return (
     <BrowserRouter>
       <Routes>
@@ -28,7 +39,7 @@ export function App(): JSX.Element {
         <Route
           path={AppRoute.Favorites}
           element={
-            <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
+            <PrivateRoute authorizationStatus={authorizationStatus}>
               <Favorites />
             </PrivateRoute>
           }

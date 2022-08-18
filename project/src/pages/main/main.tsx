@@ -1,28 +1,21 @@
-import {useEffect, useState} from 'react';
-import {useAppDispatch, useAppSelector} from '../../hooks';
-import {setRentalPlaces} from '../../store/action';
-import {HOTELS} from '../../mocks/hotels.const';
+import {useState} from 'react';
+import {useAppSelector} from '../../hooks';
 import {Header} from '../../components/header/header';
 import {NavigationMenu} from '../../components/navigation-menu/navigation-menu';
 import {Sorting} from '../../components/sorting/sorting';
 import {SvgSprite} from '../../components/svg-sprite/svg-sprite';
 import {Map} from '../../components/map/map';
 import {Places} from '../../components/places/places';
-import {sortPlaces} from '../../utils/common';
+import {filterPlaces, sortPlaces} from '../../utils/common';
 
 export function Main(): JSX.Element {
-  const dispatch = useAppDispatch();
   const city = useAppSelector((state) => state.city);
+  const places = useAppSelector((state) => state.places);
   const activeSortingType = useAppSelector((state) => state.activeSortingType);
+  const filteredPlaces = filterPlaces(places, city);
+  const sortedPlaces = sortPlaces(filteredPlaces, activeSortingType);
   const [activeHotelId, setActiveHotelId] = useState<number | null>(null);
-  const places = HOTELS.filter((place) => place.city.name === city.name);
   const isEmptyPage: string = !places.length ? 'page__main--index-empty' : '';
-
-  sortPlaces(places, activeSortingType);
-
-  useEffect(() => {
-    dispatch(setRentalPlaces(places));
-  }, [city]);
 
   return (
     <>
@@ -35,15 +28,15 @@ export function Main(): JSX.Element {
           <NavigationMenu activeCity={city} />
           <div className="cities">
             {
-              places.length ?
+              sortedPlaces.length ?
                 <div className="cities__places-container container">
                   <Places
-                    places={places}
+                    places={sortedPlaces}
                     onPlaceCardEnter={(id: number) => setActiveHotelId(id)}
                     onPlaceCardLeave={() => setActiveHotelId(null)}
                   >
                     <h2 className="visually-hidden">Places</h2>
-                    <b className="places__found">{places.length} places to stay in {city.name}</b>
+                    <b className="places__found">{sortedPlaces.length} places to stay in {city.name}</b>
                     <Sorting
                       activeSortingType={activeSortingType}
                       city={city}
@@ -54,7 +47,7 @@ export function Main(): JSX.Element {
                     <Map
                       className='cities'
                       city={city}
-                      places={places}
+                      places={sortedPlaces}
                       activeHotelId={activeHotelId}
                     />
                   </div>

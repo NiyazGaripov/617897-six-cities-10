@@ -23,9 +23,23 @@ export const MAP_ICON = {
   ANCHOR: 13.5,
 };
 
-export const SortingType = {
-  POPULAR: 'Popular',
-  LOW_TO_HIGH: 'Price: low to high',
-  HIGH_TO_LOW: 'Price: high to low',
-  TOP_RATED: 'Top rated first',
-};
+export enum SortingType {
+  Popular = 'Popular',
+  LowToHigh = 'Price: low to high',
+  HighToLow = 'Price: high to low',
+  TopRated = 'Top rated first',
+}
+
+export enum APIRoute {
+  Hotels = '/hotels',
+  Favorites = '/favorite',
+  Login = '/login',
+  Logout = '/logout',
+}
+
+export enum DataLoadingStatus {
+  None = 'none',
+  Pending = 'pending',
+  Fulfilled = 'fulfilled',
+  Rejected = 'rejected',
+}

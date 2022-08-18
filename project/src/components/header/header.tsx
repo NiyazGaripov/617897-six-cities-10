@@ -3,7 +3,7 @@ import {useAppSelector} from '../../hooks';
 import {AppRoute, AuthorizationStatus} from '../../constants';
 
 export function Header(): JSX.Element {
-  const isAuth = useAppSelector((state) => state.isAuth);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const user = useAppSelector((state) => state.user);
 
   return (
@@ -18,7 +18,7 @@ export function Header(): JSX.Element {
           <nav className="header__nav">
             <ul className="header__nav-list">
               {
-                isAuth === AuthorizationStatus.Auth ?
+                authorizationStatus === AuthorizationStatus.Auth ?
                   <>
                     <li className="header__nav-item user">
                       <Link to="/favorites" className="header__nav-link header__nav-link--profile">
