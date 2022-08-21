@@ -1,10 +1,17 @@
+import React from 'react';
 import {Link} from 'react-router-dom';
-import {useAppSelector} from '../../hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {logoutAction} from '../../store/api-actions';
 import {AppRoute, AuthorizationStatus} from '../../constants';
 
 export function Header(): JSX.Element {
+  const dispatch = useAppDispatch();
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const user = useAppSelector((state) => state.user);
+  const handleSignOutClick = (evt: React.MouseEvent<HTMLElement>) => {
+    evt.preventDefault();
+    dispatch(logoutAction());
+  };
 
   return (
     <header className="header">
@@ -28,7 +35,11 @@ export function Header(): JSX.Element {
                       </Link>
                     </li>
                     <li className="header__nav-item">
-                      <Link to="/login" className="header__nav-link">
+                      <Link
+                        to="/login"
+                        className="header__nav-link"
+                        onClick={handleSignOutClick}
+                      >
                         <span className="header__signout">Sign out</span>
                       </Link>
                     </li>
