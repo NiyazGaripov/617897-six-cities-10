@@ -1,4 +1,8 @@
 export type User = {
-  email: string;
-  favoritePlacesCount: number;
+  avatarUrl: string
+  email: string
+  id: number
+  isPro: boolean
+  name: string
+  token: string
 };
