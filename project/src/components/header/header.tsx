@@ -8,6 +8,8 @@ export function Header(): JSX.Element {
   const dispatch = useAppDispatch();
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const user = useAppSelector((state) => state.user);
+  const favoritePlaces = useAppSelector((state) => state.favoritePlaces);
+
   const handleSignOutClick = (evt: React.MouseEvent<HTMLElement>) => {
     evt.preventDefault();
     dispatch(logoutAction());
@@ -30,8 +32,8 @@ export function Header(): JSX.Element {
                     <li className="header__nav-item user">
                       <Link to="/favorites" className="header__nav-link header__nav-link--profile">
                         <div className="header__avatar-wrapper user__avatar-wrapper" />
-                        <span className="header__user-name user__name">{user.email}</span>
-                        <span className="header__favorite-count">{user.favoritePlacesCount}</span>
+                        <span className="header__user-name user__name">{user?.email}</span>
+                        <span className="header__favorite-count">{favoritePlaces.length}</span>
                       </Link>
                     </li>
                     <li className="header__nav-item">
