@@ -1,23 +1,22 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AxiosInstance} from 'axios';
-import {loadFavoritePlaces, loadPlaces, redirectToRoute, requireAuthorization, setDataLoadingStatus} from './actions';
+import {
+  loadFavoritePlaces,
+  loadPlaces,
+  redirectToRoute,
+  requireAuthorization,
+  setDataLoadingStatus,
+  setUserData
+} from './actions';
 import {AppDispatch, State} from '../types/state';
 import {Hotel} from '../types/hotel.type';
+import {User} from '../types/user.type';
 import {APIRoute, AppRoute, AuthorizationStatus, DataLoadingStatus} from '../constants';
 import {dropToken, saveToken} from '../services/token';
 
 type AuthData = {
   email: string
   password: string
-};
-
-type UserData = {
-  avatarUrl: string
-  email: string
-  id: number
-  isPro: boolean
-  name: string
-  token: string
 };
 
 export const fetchPlacesAction = createAsyncThunk<void, undefined, {
@@ -79,9 +78,10 @@ export const loginAction = createAsyncThunk<void, AuthData, {
 }>(
   'user/login',
   async ({email, password}, {dispatch, extra: api}) => {
-    const {data: {token}} = await api.post<UserData>(APIRoute.Login, {email, password});
-    saveToken(token);
+    const {data: user} = await api.post<User>(APIRoute.Login, {email, password});
+    saveToken(user.token);
     dispatch(requireAuthorization(AuthorizationStatus.Auth));
+    dispatch(setUserData(user));
     dispatch(redirectToRoute(AppRoute.Main));
   },
 );
