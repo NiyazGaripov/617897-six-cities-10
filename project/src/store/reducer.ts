@@ -5,7 +5,7 @@ import {
   requireAuthorization,
   setCity, setDataLoadingStatus,
   setRentalPlaces,
-  setSortingType
+  setSortingType, setUserData
 } from './actions';
 import {AuthorizationStatus, DataLoadingStatus, SortingType} from '../constants';
 import {User} from '../types/user.type';
@@ -22,7 +22,7 @@ const DEFAULT_CITY = {
 
 type InitialState = {
   authorizationStatus: AuthorizationStatus,
-  user: User,
+  user: User | undefined,
   city: City,
   places: Hotel[],
   favoritePlaces: Hotel[],
@@ -32,10 +32,7 @@ type InitialState = {
 
 const initialState: InitialState = {
   authorizationStatus: AuthorizationStatus.Unknown,
-  user: {
-    email: '',
-    favoritePlacesCount: 0,
-  },
+  user: undefined,
   city: DEFAULT_CITY,
   places: [],
   favoritePlaces: [],
@@ -65,5 +62,8 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setDataLoadingStatus, (state, action) => {
       state.dataLoadingStatus = action.payload;
+    })
+    .addCase(setUserData, (state, action) => {
+      state.user = action.payload;
     });
 });

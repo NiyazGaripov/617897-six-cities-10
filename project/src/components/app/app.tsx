@@ -1,8 +1,10 @@
-import {BrowserRouter, Route, Routes, Outlet} from 'react-router-dom';
+import {Route, Routes, Outlet} from 'react-router-dom';
 import {AppRoute, DataLoadingStatus} from '../../constants';
+import {browserHistory} from '../../browser-history';
 import {useAppSelector} from '../../hooks';
 import {COMMENTS} from '../../mocks/comments.const';
 import {CITIES} from '../../mocks/cities.const';
+import {HistoryRouter} from '../history-route/history-route';
 import {Main} from '../../pages/main/main';
 import {Login} from '../../pages/login/login';
 import {Favorites} from '../../pages/favorites/favorites';
@@ -22,7 +24,7 @@ export function App(): JSX.Element {
   }
 
   return (
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
       <Routes>
         <Route
           path={AppRoute.Main}
@@ -57,6 +59,6 @@ export function App(): JSX.Element {
           element={<NotFound />}
         />
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 }
