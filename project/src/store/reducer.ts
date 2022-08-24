@@ -22,7 +22,7 @@ const DEFAULT_CITY = {
 
 type InitialState = {
   authorizationStatus: AuthorizationStatus,
-  user: User | undefined,
+  user?: User,
   city: City,
   places: Hotel[],
   favoritePlaces: Hotel[],
