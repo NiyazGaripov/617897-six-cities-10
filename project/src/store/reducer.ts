@@ -1,15 +1,21 @@
 import {createReducer} from '@reduxjs/toolkit';
 import {
+  loadComments,
   loadFavoritePlaces,
+  loadNearbyPlaces,
+  loadPlace,
   loadPlaces,
   requireAuthorization,
-  setCity, setDataLoadingStatus,
+  setCity,
+  setDataLoadingStatus,
   setRentalPlaces,
-  setSortingType, setUserData
+  setSortingType,
+  setUserData
 } from './actions';
 import {AuthorizationStatus, DataLoadingStatus, SortingType} from '../constants';
 import {User} from '../types/user.type';
 import {City, Hotel} from '../types/hotel.type';
+import {Comment} from '../types/comment.type';
 
 const DEFAULT_CITY = {
   location: {
@@ -25,17 +31,21 @@ type InitialState = {
   user?: User,
   city: City,
   places: Hotel[],
+  place?: Hotel,
   favoritePlaces: Hotel[],
+  nearbyPlaces: Hotel[],
+  comments: Comment[],
   activeSortingType: SortingType,
   dataLoadingStatus: DataLoadingStatus,
 }
 
 const initialState: InitialState = {
   authorizationStatus: AuthorizationStatus.Unknown,
-  user: undefined,
   city: DEFAULT_CITY,
   places: [],
   favoritePlaces: [],
+  nearbyPlaces: [],
+  comments: [],
   activeSortingType: SortingType.Popular,
   dataLoadingStatus: DataLoadingStatus.None,
 };
@@ -54,8 +64,17 @@ export const reducer = createReducer(initialState, (builder) => {
     .addCase(loadPlaces, (state, action) => {
       state.places = action.payload;
     })
+    .addCase(loadPlace, (state, action) => {
+      state.place = action.payload;
+    })
     .addCase(loadFavoritePlaces, (state, action) => {
-      state.places = action.payload;
+      state.favoritePlaces = action.payload;
+    })
+    .addCase(loadNearbyPlaces, (state, action) => {
+      state.nearbyPlaces = action.payload;
+    })
+    .addCase(loadComments, (state, action) => {
+      state.comments = action.payload;
     })
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;
