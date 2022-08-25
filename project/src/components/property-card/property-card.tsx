@@ -8,7 +8,7 @@ type Props = {
 };
 
 export function PropertyCard({hotel}: Props): JSX.Element {
-  const {bedrooms, description, goods, host, isPremium, maxAdults, price, rating, title, type} = hotel;
+  const { bedrooms, description, goods, host, isPremium, maxAdults, price, rating, title, type } = hotel;
 
   return (
     <>

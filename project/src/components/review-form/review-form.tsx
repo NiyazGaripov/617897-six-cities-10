@@ -1,16 +1,12 @@
 import {ChangeEvent, useState} from 'react';
-import {Rating} from '../../types/raiting.type';
-
-type Props = {
-  ratings: Rating[];
-};
+import {RATINGS} from '../../constants';
 
 enum ReviewLength {
   MIN = 50,
   MAX = 300
 }
 
-export function ReviewForm({ratings}: Props): JSX.Element {
+export function ReviewForm(): JSX.Element {
   const [formData, setFormData] = useState({
     rating: '0',
     review: '',
@@ -25,7 +21,7 @@ export function ReviewForm({ratings}: Props): JSX.Element {
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {
-          ratings.map((rating) =>
+          RATINGS.map((rating) =>
             (
               <div key={rating.id}>
                 <input

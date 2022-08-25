@@ -1,8 +1,6 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
-import {Comment} from '../../types/comment.type';
-import {RATINGS} from '../../mocks/raitings.const';
-import {useAppSelector} from '../../hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks';
 import {Header} from '../../components/header/header';
 import {Gallery} from '../../components/gallery/gallery';
 import {PropertyCard} from '../../components/property-card/property-card';
@@ -11,26 +9,30 @@ import {ReviewForm} from '../../components/review-form/review-form';
 import {SvgSprite} from '../../components/svg-sprite/svg-sprite';
 import {Map} from '../../components/map/map';
 import {Places} from '../../components/places/places';
-import {Hotel} from '../../types/hotel.type';
+import {fetchPlaceAction} from '../../store/api-actions';
+import {Loading} from '../../components/loading/loading';
+import {AuthorizationStatus} from '../../constants';
 
-type Props = {
-  comments: Comment[];
-};
-
-type RouteParams = {
-  id: string;
-}
-
-export function Property({comments}: Props): JSX.Element {
+export function Property(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const { id } = useParams();
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const places = useAppSelector((state) => state.places);
   const city = useAppSelector((state) => state.city);
+  const comments = useAppSelector((state) => state.comments);
+  const place = useAppSelector((state) => state.place);
+  const nearbyPlaces = useAppSelector((state) => state.nearbyPlaces);
   const [activeHotelId, setActiveHotelId] = useState<number | null>(null);
-  const { id } = useParams<RouteParams>();
-  const nearbyHotels = places.slice().splice(1);
-  let selectPlace;
-  if (id) {
-    selectPlace = places.find((place) => place.id === +id);
+
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchPlaceAction(Number(id)));
+    }
+  }, [id, dispatch]);
+
+  if (!place) {
+    return (
+      <Loading />
+    );
   }
 
   return (
@@ -43,20 +45,20 @@ export function Property({comments}: Props): JSX.Element {
         <main className="page__main page__main--property">
           <section className="property">
             <div className="property__gallery-container container">
-              <Gallery images={(selectPlace?.images) as string[]} />
+              <Gallery images={place.images} />
             </div>
 
             <div className="property__container container">
               <div className="property__wrapper">
-                <PropertyCard hotel={selectPlace as Hotel} />
+                <PropertyCard hotel={place} />
 
                 <section className="property__reviews reviews">
                   <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
                   <Reviews comments={comments} />
 
                   {
-                    authorizationStatus &&
-                    <ReviewForm ratings={RATINGS} />
+                    authorizationStatus === AuthorizationStatus.Auth &&
+                    <ReviewForm />
                   }
                 </section>
               </div>
@@ -64,13 +66,13 @@ export function Property({comments}: Props): JSX.Element {
             <Map
               className='property'
               city={city}
-              places={nearbyHotels}
+              places={nearbyPlaces}
               activeHotelId={activeHotelId}
             />
           </section>
           <div className="container">
             <Places
-              places={nearbyHotels}
+              places={nearbyPlaces}
               sectionClassName='near-places'
               placesClassName='near-places__list'
               onPlaceCardEnter={(placeId: number) => setActiveHotelId(placeId)}
