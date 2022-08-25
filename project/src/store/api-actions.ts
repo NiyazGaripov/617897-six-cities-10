@@ -1,7 +1,10 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AxiosInstance} from 'axios';
 import {
+  loadComments,
   loadFavoritePlaces,
+  loadNearbyPlaces,
+  loadPlace,
   loadPlaces,
   redirectToRoute,
   requireAuthorization,
@@ -13,6 +16,7 @@ import {Hotel} from '../types/hotel.type';
 import {User} from '../types/user.type';
 import {APIRoute, AppRoute, AuthorizationStatus, DataLoadingStatus} from '../constants';
 import {dropToken, saveToken} from '../services/token';
+import {Comment} from '../types/comment.type';
 
 type AuthData = {
   email: string
@@ -37,6 +41,24 @@ export const fetchPlacesAction = createAsyncThunk<void, undefined, {
   },
 );
 
+export const fetchPlaceAction = createAsyncThunk<void, number, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'data/fetchPlace',
+  async (id, {dispatch, extra: api}) => {
+    try {
+      const {data} = await api.get<Hotel>(`${APIRoute.Hotels}/${id}`);
+      dispatch(loadPlace(data));
+      dispatch(fetchNearbyPlacesAction(id));
+      dispatch(fetchCommentsAction(id));
+    } catch {
+      dispatch(redirectToRoute(AppRoute.NotFound));
+    }
+  },
+);
+
 export const fetchFavoritePlacesAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch,
   state: State,
@@ -52,6 +74,30 @@ export const fetchFavoritePlacesAction = createAsyncThunk<void, undefined, {
     } catch {
       dispatch(setDataLoadingStatus(DataLoadingStatus.Rejected));
     }
+  },
+);
+
+export const fetchNearbyPlacesAction = createAsyncThunk<void, number, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'data/fetchNearbyPlaces',
+  async (id, {dispatch, extra: api}) => {
+    const {data} = await api.get<Hotel[]>(`${APIRoute.Hotels}/${id}/nearby`);
+    dispatch(loadNearbyPlaces(data));
+  },
+);
+
+export const fetchCommentsAction = createAsyncThunk<void, number, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'data/fetchComments',
+  async (id, {dispatch, extra: api}) => {
+    const {data} = await api.get<Comment[]>(`${APIRoute.Comments}/${id}`);
+    dispatch(loadComments(data));
   },
 );
 
