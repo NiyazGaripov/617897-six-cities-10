@@ -73,14 +73,8 @@ export const fetchFavoritePlacesAction = createAsyncThunk<void, undefined, {
 }>(
   'data/fetchFavoritePlaces',
   async (_arg, {dispatch, extra: api}) => {
-    try {
-      dispatch(setDataLoadingStatus(DataLoadingStatus.Pending));
-      const {data} = await api.get<Hotel[]>(APIRoute.Favorites);
-      dispatch(loadFavoritePlaces(data));
-      dispatch(setDataLoadingStatus(DataLoadingStatus.Fulfilled));
-    } catch {
-      dispatch(setDataLoadingStatus(DataLoadingStatus.Rejected));
-    }
+    const {data} = await api.get<Hotel[]>(APIRoute.Favorites);
+    dispatch(loadFavoritePlaces(data));
   },
 );
 
