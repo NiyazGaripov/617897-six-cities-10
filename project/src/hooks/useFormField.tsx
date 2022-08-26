@@ -3,10 +3,11 @@ import {useValidation, Validator} from './useValidation';
 
 type FormField = {
   value: string
-  onChange: (evt: React.ChangeEvent<HTMLInputElement>) => void;
-  onBlur: (evt: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (evt: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  onBlur: (evt: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   isDirty: boolean,
   valid: Record<string, string | number | boolean>,
+  reset: () => void,
 }
 
 export function useFormField(initialValue: string, validators: Validator): FormField {
@@ -14,8 +15,9 @@ export function useFormField(initialValue: string, validators: Validator): FormF
   const [isDirty, setDirty] = useState(false);
   const valid = useValidation(value, validators);
 
-  const onChange = useCallback((evt: ChangeEvent<HTMLInputElement>) => setValue(evt.target.value), []);
-  const onBlur = useCallback((evt: ChangeEvent<HTMLInputElement>) => setDirty(true), []);
+  const onChange = useCallback((evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setValue(evt.target.value), []);
+  const onBlur = useCallback((evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setDirty(true), []);
+  const reset = () => setValue('');
 
-  return { value, onChange, onBlur, isDirty, valid };
+  return { value, onChange, onBlur, isDirty, valid, reset };
 }
