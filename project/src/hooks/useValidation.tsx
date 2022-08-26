@@ -17,6 +17,7 @@ export type Validator = {
   isEmail?: boolean;
   isPassword?: boolean;
   minLength?: number;
+  maxLength?: number;
 };
 
 export function useValidation(value: string, validators: Validator) {
@@ -24,6 +25,7 @@ export function useValidation(value: string, validators: Validator) {
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [minLengthError, setMinLengthError] = useState(false);
+  const [maxLengthError, setMaxLengthError] = useState(false);
   const [inputValid, setInputValid] = useState(false);
 
   useEffect(() => {
@@ -41,13 +43,16 @@ export function useValidation(value: string, validators: Validator) {
         case 'minLength':
           setMinLengthError(value.length < validators[validator]!);
           break;
+        case 'maxLength':
+          setMaxLengthError(value.length > validators[validator]!);
+          break;
       }
     }
   }, [value, validators]);
 
   useEffect(() => {
-    setInputValid(!(allowEmpty || emailError || passwordError || minLengthError));
-  }, [allowEmpty, emailError, passwordError, minLengthError]);
+    setInputValid(!(allowEmpty || emailError || passwordError || minLengthError || maxLengthError));
+  }, [allowEmpty, emailError, passwordError, minLengthError, maxLengthError]);
 
-  return { allowEmpty, emailError, passwordError, minLengthError, inputValid };
+  return { allowEmpty, emailError, passwordError, minLengthError, maxLengthError, inputValid };
 }
