@@ -57,8 +57,8 @@ export function Property(): JSX.Element {
                   <Reviews comments={comments} />
 
                   {
-                    authorizationStatus === AuthorizationStatus.Auth &&
-                    <ReviewForm />
+                    authorizationStatus === AuthorizationStatus.Auth && id &&
+                    <ReviewForm id={Number(id)} />
                   }
                 </section>
               </div>
