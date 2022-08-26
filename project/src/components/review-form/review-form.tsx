@@ -1,45 +1,79 @@
-import {ChangeEvent, useState} from 'react';
-import {RATINGS} from '../../constants';
+import {FormEvent} from 'react';
+import {RatingFormControl} from '../rating-form-control/rating-form-control';
+import {useAppDispatch} from '../../hooks';
+import {addNewCommentAction} from '../../store/api-actions';
+import {useFormField} from '../../hooks/useFormField';
 
 enum ReviewLength {
   MIN = 50,
   MAX = 300
 }
 
-export function ReviewForm(): JSX.Element {
-  const [formData, setFormData] = useState({
-    rating: '0',
-    review: '',
-  });
+type Rating = {
+  value: number;
+  title: string;
+};
 
-  const handleFormFieldChange = (name: string, value: number | string) => {
-    setFormData({...formData, [name]: value});
+const RATINGS: Rating[] = [
+  {
+    value: 5,
+    title: 'perfect',
+  },
+  {
+    value: 4,
+    title: 'good',
+  },
+  {
+    value: 3,
+    title: 'not bad',
+  },
+  {
+    value: 2,
+    title: 'badly',
+  },
+  {
+    value: 1,
+    title: 'terribly',
+  },
+];
+
+type Props = {
+  id: number;
+}
+
+export function ReviewForm({id}: Props): JSX.Element {
+  const dispatch = useAppDispatch();
+  const rating = useFormField('',{ allowEmpty: true });
+  const comment = useFormField('',{ allowEmpty: true, minLength: ReviewLength.MIN, maxLength: ReviewLength.MAX,});
+
+  const handleFormSubmit = (evt: FormEvent) => {
+    evt.preventDefault();
+    dispatch(addNewCommentAction({
+      id: id,
+      comment: comment.value,
+      rating: Number(rating.value),
+    }));
+    rating.reset();
+    comment.reset();
   };
 
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form
+      className="reviews__form form"
+      onSubmit={handleFormSubmit}
+    >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {
-          RATINGS.map((rating) =>
+          RATINGS.map(({value, title}) =>
             (
-              <div key={rating.id}>
-                <input
-                  className="form__rating-input visually-hidden"
-                  name="rating"
-                  value={rating.value}
-                  id={rating.id}
-                  type="radio"
-                  onClick={({currentTarget}) => {
-                    handleFormFieldChange(currentTarget.name, rating.value);
-                  }}
-                />
-                <label htmlFor={rating.id} className="reviews__rating-label form__rating-label" title={rating.title}>
-                  <svg className="form__star-image" width="37" height="33">
-                    <use xlinkHref="#icon-star" />
-                  </svg>
-                </label>
-              </div>
+              <RatingFormControl
+                key={value}
+                value={value}
+                title={title}
+                onFormFieldChange={rating.onChange}
+                currentValue={Number(rating.value)}
+              />
             )
           )
         }
@@ -48,23 +82,17 @@ export function ReviewForm(): JSX.Element {
       <textarea
         className="reviews__textarea form__textarea"
         id="review"
-        name="review"
+        name="comment"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        value={formData.review}
-        onChange={(evt: ChangeEvent<HTMLTextAreaElement>) => {
-          const {name, value} = evt.target;
-          handleFormFieldChange(name, value);
-        }}
+        value={comment.value}
+        onChange={comment.onChange}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.</p>
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={
-            formData.rating === '0' &&
-            (formData.review.length < ReviewLength.MIN || formData.review.length > ReviewLength.MAX)
-          }
+          disabled={!rating.valid.inputValid || !comment.valid.inputValid}
         >
           Submit
         </button>
