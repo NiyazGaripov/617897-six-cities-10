@@ -1,6 +1,7 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AxiosInstance} from 'axios';
 import {
+  addNewComment,
   loadComments,
   loadFavoritePlaces,
   loadNearbyPlaces,
@@ -21,6 +22,12 @@ import {Comment} from '../types/comment.type';
 type AuthData = {
   email: string
   password: string
+};
+
+type ReviewData = {
+  id: number,
+  rating: number
+  comment: string
 };
 
 export const fetchPlacesAction = createAsyncThunk<void, undefined, {
@@ -98,6 +105,19 @@ export const fetchCommentsAction = createAsyncThunk<void, number, {
   async (id, {dispatch, extra: api}) => {
     const {data} = await api.get<Comment[]>(`${APIRoute.Comments}/${id}`);
     dispatch(loadComments(data));
+  },
+);
+
+export const addNewCommentAction = createAsyncThunk<void, ReviewData, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'data/addNewComment',
+  async ({comment, rating, id}, {dispatch, extra: api}) => {
+    const {data} = await api.post<Comment[]>(`${APIRoute.Comments}/${id}`, {comment, rating});
+    dispatch(addNewComment(data));
+    dispatch(fetchCommentsAction(id));
   },
 );
 

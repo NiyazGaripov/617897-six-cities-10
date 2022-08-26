@@ -13,6 +13,7 @@ export const loadPlace = createAction<Hotel>('data/loadPlace');
 export const loadFavoritePlaces = createAction<Hotel[]>('data/loadFavoritePlaces');
 export const loadNearbyPlaces = createAction<Hotel[]>('data/loadNearbyPlaces');
 export const loadComments = createAction<Comment[]>('data/loadComments');
+export const addNewComment = createAction<Comment[]>('data/addNewComment');
 export const setDataLoadingStatus = createAction<DataLoadingStatus>('data/setDataLoadingStatus');
 export const redirectToRoute = createAction<AppRoute>('main/redirectToRoute');
 export const setUserData = createAction<User>('login/setUserData');
