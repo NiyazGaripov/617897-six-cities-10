@@ -1,7 +1,11 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AxiosInstance} from 'axios';
 import {
+  addNewComment,
+  loadComments,
   loadFavoritePlaces,
+  loadNearbyPlaces,
+  loadPlace,
   loadPlaces,
   redirectToRoute,
   requireAuthorization,
@@ -13,10 +17,17 @@ import {Hotel} from '../types/hotel.type';
 import {User} from '../types/user.type';
 import {APIRoute, AppRoute, AuthorizationStatus, DataLoadingStatus} from '../constants';
 import {dropToken, saveToken} from '../services/token';
+import {Comment} from '../types/comment.type';
 
 type AuthData = {
   email: string
   password: string
+};
+
+type ReviewData = {
+  id: number,
+  rating: number
+  comment: string
 };
 
 export const fetchPlacesAction = createAsyncThunk<void, undefined, {
@@ -37,6 +48,24 @@ export const fetchPlacesAction = createAsyncThunk<void, undefined, {
   },
 );
 
+export const fetchPlaceAction = createAsyncThunk<void, number, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'data/fetchPlace',
+  async (id, {dispatch, extra: api}) => {
+    try {
+      const {data} = await api.get<Hotel>(`${APIRoute.Hotels}/${id}`);
+      dispatch(loadPlace(data));
+      dispatch(fetchNearbyPlacesAction(id));
+      dispatch(fetchCommentsAction(id));
+    } catch {
+      dispatch(redirectToRoute(AppRoute.NotFound));
+    }
+  },
+);
+
 export const fetchFavoritePlacesAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch,
   state: State,
@@ -44,14 +73,45 @@ export const fetchFavoritePlacesAction = createAsyncThunk<void, undefined, {
 }>(
   'data/fetchFavoritePlaces',
   async (_arg, {dispatch, extra: api}) => {
-    try {
-      dispatch(setDataLoadingStatus(DataLoadingStatus.Pending));
-      const {data} = await api.get<Hotel[]>(APIRoute.Favorites);
-      dispatch(loadFavoritePlaces(data));
-      dispatch(setDataLoadingStatus(DataLoadingStatus.Fulfilled));
-    } catch {
-      dispatch(setDataLoadingStatus(DataLoadingStatus.Rejected));
-    }
+    const {data} = await api.get<Hotel[]>(APIRoute.Favorites);
+    dispatch(loadFavoritePlaces(data));
+  },
+);
+
+export const fetchNearbyPlacesAction = createAsyncThunk<void, number, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'data/fetchNearbyPlaces',
+  async (id, {dispatch, extra: api}) => {
+    const {data} = await api.get<Hotel[]>(`${APIRoute.Hotels}/${id}/nearby`);
+    dispatch(loadNearbyPlaces(data));
+  },
+);
+
+export const fetchCommentsAction = createAsyncThunk<void, number, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'data/fetchComments',
+  async (id, {dispatch, extra: api}) => {
+    const {data} = await api.get<Comment[]>(`${APIRoute.Comments}/${id}`);
+    dispatch(loadComments(data));
+  },
+);
+
+export const addNewCommentAction = createAsyncThunk<void, ReviewData, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'data/addNewComment',
+  async ({comment, rating, id}, {dispatch, extra: api}) => {
+    const {data} = await api.post<Comment[]>(`${APIRoute.Comments}/${id}`, {comment, rating});
+    dispatch(addNewComment(data));
+    dispatch(fetchCommentsAction(id));
   },
 );
 

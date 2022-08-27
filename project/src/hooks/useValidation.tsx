@@ -1,50 +1,58 @@
 import {useEffect, useState} from 'react';
 
-const validateEmail = (email: string) => String(email)
+const isValidEmail = (email: string) => email
   .toLowerCase()
   .match(
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
   );
 
-const validatePassword = (password: string) => String(password)
+const isValidPassword = (password: string) => password
   .toLowerCase()
   .match(
     /[a-zA-Z]+[0-9]|[0-9]+[a-zA-z]/
   );
 
-export function useValidation(value: string, validators: Record<string, string | number | boolean>) {
-  const [isEmpty, setEmpty] = useState(true);
+export type Validator = {
+  allowEmpty?: boolean;
+  isEmail?: boolean;
+  isPassword?: boolean;
+  minLength?: number;
+  maxLength?: number;
+};
+
+export function useValidation(value: string, validators: Validator) {
+  const [allowEmpty, setEmpty] = useState(true);
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [minLengthError, setMinLengthError] = useState(false);
+  const [maxLengthError, setMaxLengthError] = useState(false);
   const [inputValid, setInputValid] = useState(false);
 
   useEffect(() => {
     for (const validator in validators) {
       switch (validator) {
-        case 'isEmpty':
-          value ? setEmpty(false) : setEmpty(true);
+        case 'allowEmpty':
+          setEmpty(!value);
           break;
         case 'isEmail':
-          validateEmail(value) ? setEmailError(false) : setEmailError(true);
+          setEmailError(!isValidEmail(value));
           break;
         case 'isPassword':
-          validatePassword(value) ? setPasswordError(false) : setPasswordError(true);
+          setPasswordError(!isValidPassword(value));
           break;
         case 'minLength':
-          value.length < validators[validator] ? setMinLengthError(true) : setMinLengthError(false);
+          setMinLengthError(value.length < validators[validator]!);
+          break;
+        case 'maxLength':
+          setMaxLengthError(value.length > validators[validator]!);
           break;
       }
     }
-  }, [value]);
+  }, [value, validators]);
 
   useEffect(() => {
-    if (isEmpty || emailError || passwordError || minLengthError) {
-      setInputValid(false);
-    } else {
-      setInputValid(true);
-    }
-  }, [isEmpty, emailError, passwordError, minLengthError]);
+    setInputValid(!(allowEmpty || emailError || passwordError || minLengthError || maxLengthError));
+  }, [allowEmpty, emailError, passwordError, minLengthError, maxLengthError]);
 
-  return { isEmpty, emailError, passwordError, minLengthError, inputValid };
+  return { allowEmpty, emailError, passwordError, minLengthError, maxLengthError, inputValid };
 }

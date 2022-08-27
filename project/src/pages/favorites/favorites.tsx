@@ -1,15 +1,18 @@
-import {store} from '../../store';
+import {useEffect} from 'react';
 import {fetchFavoritePlacesAction} from '../../store/api-actions';
-import {useAppSelector} from '../../hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks';
 import {FavoriteLocation} from '../../components/favorite-location/favorite-location';
 import {Header} from '../../components/header/header';
 import {Footer} from '../../components/footer/footer';
 import {SvgSprite} from '../../components/svg-sprite/svg-sprite';
 
-store.dispatch(fetchFavoritePlacesAction());
-
 export function Favorites(): JSX.Element {
+  const dispatch = useAppDispatch();
   const favoritePlaces = useAppSelector((state) => state.favoritePlaces);
+
+  useEffect(() => {
+    dispatch(fetchFavoritePlacesAction());
+  }, [dispatch]);
 
   return (
     <>

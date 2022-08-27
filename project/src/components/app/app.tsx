@@ -2,7 +2,6 @@ import {Route, Routes, Outlet} from 'react-router-dom';
 import {AppRoute, DataLoadingStatus} from '../../constants';
 import {browserHistory} from '../../browser-history';
 import {useAppSelector} from '../../hooks';
-import {COMMENTS} from '../../mocks/comments.const';
 import {CITIES} from '../../mocks/cities.const';
 import {HistoryRouter} from '../history-route/history-route';
 import {Main} from '../../pages/main/main';
@@ -49,13 +48,11 @@ export function App(): JSX.Element {
         <Route
           path={AppRoute.Room}
           element={
-            <Property
-              comments={COMMENTS}
-            />
+            <Property />
           }
         />
         <Route
-          path="*"
+          path={AppRoute.NotFound}
           element={<NotFound />}
         />
       </Routes>

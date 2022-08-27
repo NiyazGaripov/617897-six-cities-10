@@ -5,8 +5,8 @@ import {useFormField} from '../../hooks/useFormField';
 
 export function LoginForm(): JSX.Element {
   const dispatch = useAppDispatch();
-  const email = useFormField('',{ isEmpty: true, isEmail: true });
-  const password = useFormField('',{ isEmpty: true, minLength: 2, isPassword: true });
+  const email = useFormField('',{ allowEmpty: true, isEmail: true });
+  const password = useFormField('',{ allowEmpty: true, minLength: 2, isPassword: true });
 
   const handleFormSubmit = (evt: FormEvent) => {
     evt.preventDefault();
@@ -27,8 +27,8 @@ export function LoginForm(): JSX.Element {
           onChange={email.onChange}
           onBlur={email.onBlur}
         />
-        { (email.isDirty && email?.valid?.isEmpty) && <p style={{color: 'red'}}>The field cannot be empty</p> }
-        { (email.isDirty && email?.valid?.emailError) && <p style={{color: 'red'}}>Enter a valid email address</p> }
+        { (email.isDirty && email.valid.allowEmpty) && <p style={{color: 'red'}}>The field cannot be empty</p> }
+        { (email.isDirty && email.valid.emailError) && <p style={{color: 'red'}}>Enter a valid email address</p> }
       </div>
       <div className="login__input-wrapper form__input-wrapper">
         <label className="visually-hidden">Password</label>
@@ -42,14 +42,14 @@ export function LoginForm(): JSX.Element {
           onChange={password.onChange}
           onBlur={password.onBlur}
         />
-        { (password.isDirty && password?.valid?.isEmpty) && <p style={{color: 'red'}}>The field cannot be empty</p> }
-        { (password.isDirty && password?.valid?.passwordError) && <p style={{color: 'red'}}>Password must consist of at least one letter and one number</p> }
-        { (password.isDirty && password?.valid?.minLengthError) && <p style={{color: 'red'}}>The password must be at least 2 characters long</p> }
+        { (password.isDirty && password.valid.allowEmpty) && <p style={{color: 'red'}}>The field cannot be empty</p> }
+        { (password.isDirty && password.valid.passwordError) && <p style={{color: 'red'}}>Password must consist of at least one letter and one number</p> }
+        { (password.isDirty && password.valid.minLengthError) && <p style={{color: 'red'}}>The password must be at least 2 characters long</p> }
       </div>
       <button
         className="login__submit form__submit button"
         type="submit"
-        disabled={!email?.valid?.inputValid || !password?.valid?.inputValid}
+        disabled={!email.valid.inputValid || !password.valid.inputValid}
       >
         Sign in
       </button>

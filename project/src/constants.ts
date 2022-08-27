@@ -3,6 +3,7 @@ export enum AppRoute {
   Login = '/login',
   Favorites = '/favorites',
   Room = '/offer/:id',
+  NotFound = '*',
 }
 
 export enum AuthorizationStatus {
@@ -33,6 +34,7 @@ export enum SortingType {
 export enum APIRoute {
   Hotels = '/hotels',
   Favorites = '/favorite',
+  Comments = '/comments',
   Login = '/login',
   Logout = '/logout',
 }
