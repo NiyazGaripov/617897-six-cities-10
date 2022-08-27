@@ -17,7 +17,7 @@ export function useFormField(initialValue: string, validators: Validator): FormF
 
   const onChange = useCallback((evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setValue(evt.target.value), []);
   const onBlur = useCallback((evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setDirty(true), []);
-  const reset = () => setValue('');
+  const reset = useCallback(() => setValue(''), []);
 
   return { value, onChange, onBlur, isDirty, valid, reset };
 }
