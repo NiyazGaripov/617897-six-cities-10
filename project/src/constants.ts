@@ -24,6 +24,15 @@ export const MAP_ICON = {
   ANCHOR: 13.5,
 };
 
+export const DEFAULT_CITY = {
+  location: {
+    latitude: 48.864716,
+    longitude: 2.349014,
+    zoom: 13,
+  },
+  name: 'Paris',
+};
+
 export enum SortingType {
   Popular = 'Popular',
   LowToHigh = 'Price: low to high',
@@ -44,4 +53,11 @@ export enum DataLoadingStatus {
   Pending = 'pending',
   Fulfilled = 'fulfilled',
   Rejected = 'rejected',
+}
+
+export enum NameSpace {
+  Auth = 'AUTH',
+  App = 'APP',
+  Places = 'PLACES',
+  Comments = 'COMMENTS',
 }
