@@ -1,7 +1,14 @@
 import {Hotel} from '../../types/hotel.type';
 import {createSlice} from '@reduxjs/toolkit';
 import {NameSpace} from '../../constants';
-import {fetchFavoritePlacesAction, fetchNearbyPlacesAction, fetchPlaceAction, fetchPlacesAction} from './api';
+import {
+  fetchFavoritePlacesAction,
+  fetchNearbyPlacesAction,
+  fetchPlaceAction,
+  fetchPlacesAction,
+  setFavoriteStatusAction
+} from './api';
+import {replaceFavoritePlaces} from '../../utils/common';
 
 type PlacesState = {
   places: Hotel[],
@@ -64,7 +71,7 @@ export const places = createSlice({
         state.error = action.error.message;
       })
       .addCase(fetchNearbyPlacesAction.pending, (state) => {
-        state.favoritePlaces = [];
+        state.nearbyPlaces = [];
         state.loading = true;
         state.error = undefined;
       })
@@ -73,6 +80,30 @@ export const places = createSlice({
         state.loading = false;
       })
       .addCase(fetchNearbyPlacesAction.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+      .addCase(setFavoriteStatusAction.pending, (state) => {
+        state.loading = true;
+        state.error = undefined;
+      })
+      .addCase(setFavoriteStatusAction.fulfilled, (state, action) => {
+        state.places = state.places.map((place) => replaceFavoritePlaces(place, action.payload));
+
+        if (state.place?.id === action.payload.id) {
+          state.place = action.payload;
+        }
+
+        if (action.payload.isFavorite) {
+          state.favoritePlaces = [...state.favoritePlaces, action.payload];
+        } else {
+          state.favoritePlaces = state.favoritePlaces.filter((place) => place.id !== action.payload.id);
+        }
+
+        state.nearbyPlaces = state.nearbyPlaces.map((place) => replaceFavoritePlaces(place, action.payload));
+        state.loading = false;
+      })
+      .addCase(setFavoriteStatusAction.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       });
