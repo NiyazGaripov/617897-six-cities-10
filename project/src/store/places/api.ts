@@ -6,6 +6,11 @@ import {AppDispatch} from '../../types/state';
 import {redirectToRoute} from '../actions';
 import {fetchCommentsAction} from '../comments/api';
 
+type FavoriteStatusData = {
+  id: number;
+  status: number;
+};
+
 export const fetchPlacesAction = createAsyncThunk<Hotel[], undefined, {
   extra: AxiosInstance
 }>(
@@ -41,6 +46,22 @@ export const fetchFavoritePlacesAction = createAsyncThunk<Hotel[], undefined, {
   async (_arg, {extra: api}) => {
     const {data} = await api.get<Hotel[]>(APIRoute.Favorites);
     return data;
+  },
+);
+
+export const setFavoriteStatusAction = createAsyncThunk<Hotel, FavoriteStatusData, {
+  dispatch: AppDispatch,
+  extra: AxiosInstance
+}>(
+  'places/setFavoriteStatus',
+  async ({id, status}, {dispatch, extra: api}) => {
+    try {
+      const {data} = await api.post<Hotel>(`${APIRoute.Favorites}/${id}/${status}`);
+      return data;
+    } catch (error) {
+      dispatch(redirectToRoute(AppRoute.Login));
+      throw error;
+    }
   },
 );
 
