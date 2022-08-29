@@ -5,18 +5,24 @@ import {APIRoute, AppRoute} from '../../constants';
 import {User} from '../../types/user.type';
 import {dropToken, saveToken} from '../../services/token';
 import {redirectToRoute} from '../actions';
+import {fetchFavoritePlacesAction, fetchPlacesAction} from '../places/api';
 
 type AuthData = {
   email: string
   password: string
 };
 
-export const checkAuthAction = createAsyncThunk<void, undefined, {
+export const checkAuthAction = createAsyncThunk<User, undefined, {
+  dispatch: AppDispatch,
   extra: AxiosInstance
 }>(
   'auth/checkAuth',
-  async (_arg, {extra: api}) => {
-    await api.get(APIRoute.Login);
+  async (_arg, {dispatch, extra: api}) => {
+    const {data} = await api.get(APIRoute.Login);
+    if (data) {
+      dispatch(fetchFavoritePlacesAction());
+    }
+    return data;
   },
 );
 
@@ -29,6 +35,7 @@ export const loginAction = createAsyncThunk<User, AuthData, {
     const {data} = await api.post<User>(APIRoute.Login, {email, password});
     saveToken(data.token);
     dispatch(redirectToRoute(AppRoute.Main));
+    dispatch(fetchFavoritePlacesAction());
     return data;
   },
 );
@@ -42,5 +49,6 @@ export const logoutAction = createAsyncThunk<void, undefined, {
     await api.delete(APIRoute.Logout);
     dropToken();
     dispatch(redirectToRoute(AppRoute.Main));
+    dispatch(fetchPlacesAction());
   },
 );
