@@ -6,12 +6,13 @@ import {checkAuthAction, loginAction, logoutAction} from './api';
 type AuthState = {
   authorizationStatus: AuthorizationStatus,
   loading: boolean,
-  user?: User,
+  user: User | null,
   error?: string,
 }
 
 const initialState: AuthState = {
   authorizationStatus: AuthorizationStatus.Unknown,
+  user: null,
   loading: false,
 };
 
@@ -26,7 +27,8 @@ export const auth = createSlice({
         state.loading = true;
         state.error = undefined;
       })
-      .addCase(checkAuthAction.fulfilled, (state) => {
+      .addCase(checkAuthAction.fulfilled, (state, action) => {
+        state.user = action.payload;
         state.authorizationStatus = AuthorizationStatus.Auth;
         state.loading = false;
       })
@@ -41,9 +43,9 @@ export const auth = createSlice({
         state.error = undefined;
       })
       .addCase(loginAction.fulfilled, (state, action) => {
+        state.user = action.payload;
         state.authorizationStatus = AuthorizationStatus.Auth;
         state.loading = false;
-        state.user = action.payload;
       })
       .addCase(loginAction.rejected, (state, action) => {
         state.authorizationStatus = AuthorizationStatus.NoAuth;
@@ -51,6 +53,7 @@ export const auth = createSlice({
         state.error = action.error.message;
       })
       .addCase(logoutAction.fulfilled, (state, action) => {
+        state.user = null;
         state.authorizationStatus = AuthorizationStatus.NoAuth;
         state.loading = false;
       });
