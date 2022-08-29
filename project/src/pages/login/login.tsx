@@ -1,8 +1,7 @@
-import {Link} from 'react-router-dom';
-import {AppRoute} from '../../constants';
 import {Header} from '../../components/header/header';
 import {LoginForm} from '../../components/login-form/login-form';
 import {SvgSprite} from '../../components/svg-sprite/svg-sprite';
+import {RandomLocation} from '../../components/random-location/random-location';
 
 export function Login(): JSX.Element {
   return (
@@ -18,13 +17,7 @@ export function Login(): JSX.Element {
               <h1 className="login__title">Sign in</h1>
               <LoginForm />
             </section>
-            <section className="locations locations--login locations--current">
-              <div className="locations__item">
-                <Link to={AppRoute.Main} className="locations__item-link">
-                  <span>Amsterdam</span>
-                </Link>
-              </div>
-            </section>
+            <RandomLocation />
           </div>
         </main>
       </div>

@@ -1,8 +1,10 @@
 import {FormEvent} from 'react';
 import {RatingFormControl} from '../rating-form-control/rating-form-control';
-import {useAppDispatch} from '../../hooks';
-import {addNewCommentAction} from '../../store/api-actions';
+import {useAppDispatch, useAppSelector} from '../../hooks';
 import {useFormField} from '../../hooks/useFormField';
+import {addNewCommentAction} from '../../store/comments/api';
+import {getError, getLoadingStatus} from '../../store/comments/selectors';
+import styles from './review-form.module.css';
 
 enum ReviewLength {
   MIN = 50,
@@ -43,6 +45,8 @@ type Props = {
 
 export function ReviewForm({id}: Props): JSX.Element {
   const dispatch = useAppDispatch();
+  const loadingStatus = useAppSelector(getLoadingStatus);
+  const isError = useAppSelector(getError);
   const rating = useFormField('',{ allowEmpty: true });
   const comment = useFormField('',{ allowEmpty: true, minLength: ReviewLength.MIN, maxLength: ReviewLength.MAX,});
 
@@ -59,11 +63,11 @@ export function ReviewForm({id}: Props): JSX.Element {
 
   return (
     <form
-      className="reviews__form form"
+      className={`reviews__form form ${isError && styles.formError}`}
       onSubmit={handleFormSubmit}
     >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
-      <div className="reviews__rating-form form__rating">
+      <div className={`reviews__rating-form form__rating ${isError && styles.fieldError}`}>
         {
           RATINGS.map(({value, title}) =>
             (
@@ -73,6 +77,7 @@ export function ReviewForm({id}: Props): JSX.Element {
                 title={title}
                 onFormFieldChange={rating.onChange}
                 currentValue={Number(rating.value)}
+                loadingStatus={loadingStatus}
               />
             )
           )
@@ -80,21 +85,22 @@ export function ReviewForm({id}: Props): JSX.Element {
       </div>
 
       <textarea
-        className="reviews__textarea form__textarea"
+        className={`reviews__textarea form__textarea  ${isError && styles.fieldError}`}
         id="review"
         name="comment"
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={comment.value}
         onChange={comment.onChange}
+        disabled={loadingStatus}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.</p>
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={!rating.valid.inputValid || !comment.valid.inputValid}
+          disabled={!rating.valid.inputValid || !comment.valid.inputValid || loadingStatus}
         >
-          Submit
+          {loadingStatus ? 'Loading...' : 'Submit'}
         </button>
       </div>
     </form>

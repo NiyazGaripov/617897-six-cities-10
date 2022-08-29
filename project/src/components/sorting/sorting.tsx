@@ -1,8 +1,8 @@
 import {useEffect, useState} from 'react';
 import {useAppDispatch} from '../../hooks';
-import {setSortingType} from '../../store/actions';
 import {SortingType} from '../../constants';
 import {City} from '../../types/hotel.type';
+import {setSortingType} from '../../store/app/app';
 
 type Props = {
   activeSortingType: string,
@@ -19,7 +19,9 @@ export function Sorting({activeSortingType, city}: Props): JSX.Element {
   };
 
   useEffect(() => {
-    dispatch(setSortingType(SortingType.Popular));
+    if (activeSortingType !== SortingType.Popular) {
+      dispatch(setSortingType(SortingType.Popular));
+    }
   }, [city]);
 
   return (

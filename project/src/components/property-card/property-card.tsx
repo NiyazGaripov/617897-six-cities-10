@@ -1,67 +1,42 @@
+import {Gallery} from '../gallery/gallery';
+import {PropertyInfo} from '../property-info/property-info';
+import {Reviews} from '../reviews/reviews';
+import {AuthorizationStatus} from '../../constants';
+import {ReviewForm} from '../review-form/review-form';
+import {useAppSelector} from '../../hooks';
+import {getAuthorizationStatus} from '../../store/auth/selectors';
+import {getComments} from '../../store/comments/selectors';
 import {Hotel} from '../../types/hotel.type';
-import {InsideFeatures} from '../inside-features/inside-features';
-import {PropertyHost} from '../property-host/property-host';
-import {transformRatingToPercentage} from '../../utils/common';
 
 type Props = {
-  hotel: Hotel;
-};
+  place: Hotel;
+}
 
-export function PropertyCard({hotel}: Props): JSX.Element {
-  const { bedrooms, description, goods, host, isPremium, maxAdults, price, rating, title, type } = hotel;
+export function PropertyCard({place}: Props): JSX.Element {
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const comments = useAppSelector(getComments);
 
   return (
     <>
-      {
-        isPremium &&
-        <div className="property__mark">
-          <span>Premium</span>
+      <div className="property__gallery-container container">
+        <Gallery images={place.images} />
+      </div>
+
+      <div className="property__container container">
+        <div className="property__wrapper">
+          <PropertyInfo hotel={place} />
+
+          <section className="property__reviews reviews">
+            <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
+            <Reviews comments={comments} />
+
+            {
+              authorizationStatus === AuthorizationStatus.Auth &&
+              <ReviewForm id={Number(place.id)} />
+            }
+          </section>
         </div>
-      }
-
-      <div className="property__name-wrapper">
-        <h1 className="property__name">
-          {title}
-        </h1>
-        <button className="property__bookmark-button button" type="button">
-          <svg className="property__bookmark-icon" width="31" height="33">
-            <use xlinkHref="#icon-bookmark" />
-          </svg>
-          <span className="visually-hidden">To bookmarks</span>
-        </button>
       </div>
-
-      <div className="property__rating rating">
-        <div className="property__stars rating__stars">
-          <span style={{width: transformRatingToPercentage(rating)}}></span>
-          <span className="visually-hidden">Rating</span>
-        </div>
-        <span className="property__rating-value rating__value">{rating}</span>
-      </div>
-
-      <ul className="property__features">
-        <li className="property__feature property__feature--entire">
-          {type}
-        </li>
-        <li className="property__feature property__feature--bedrooms">
-          {bedrooms} Bedrooms
-        </li>
-        <li className="property__feature property__feature--adults">
-          Max {maxAdults} adults
-        </li>
-      </ul>
-
-      <div className="property__price">
-        <b className="property__price-value">&euro;{price}</b>
-        <span className="property__price-text">&nbsp;night</span>
-      </div>
-
-      <InsideFeatures features={goods} />
-
-      <PropertyHost
-        host={host}
-        description={description}
-      />
     </>
   );
 }

@@ -1,6 +1,8 @@
 import {Link} from 'react-router-dom';
 import {Hotel} from '../../types/hotel.type';
 import {transformRatingToPercentage} from '../../utils/common';
+import {useAppDispatch} from '../../hooks';
+import {setFavoriteStatusAction} from '../../store/places/api';
 
 type Props = {
   hotel: Hotel
@@ -10,9 +12,18 @@ type Props = {
 };
 
 export function PlaceCard({hotel, className, onPlaceCardEnter, onPlaceCardLeave}: Props): JSX.Element {
+  const dispatch = useAppDispatch();
   const { id, isFavorite, isPremium, previewImage, price, rating, title, type } = hotel;
   const isBookmarkActive: string = isFavorite ? 'place-card__bookmark-button--active' : '';
   const handleCardMouseEnter = () => onPlaceCardEnter?.(id);
+  const handleButtonClick = () => {
+    dispatch(setFavoriteStatusAction(
+      {
+        id,
+        status: Number(!isFavorite)
+      }
+    ));
+  };
 
   return (
     <article
@@ -37,7 +48,11 @@ export function PlaceCard({hotel, className, onPlaceCardEnter, onPlaceCardLeave}
             <b className="place-card__price-value">&euro;{price} </b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={`place-card__bookmark-button ${isBookmarkActive} button`} type="button">
+          <button
+            className={`place-card__bookmark-button ${isBookmarkActive} button`}
+            type="button"
+            onClick={handleButtonClick}
+          >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark" />
             </svg>

@@ -1,5 +1,5 @@
 import {City, Hotel} from '../types/hotel.type';
-import {SortingType} from '../constants';
+import {CITIES, SortingType} from '../constants';
 
 const MAX_PERCENTAGE = 100;
 const MAX_RATING = 5;
@@ -20,3 +20,15 @@ export const sortPlaces = ([...places]: Hotel[], sortingType: string) => {
       return places;
   }
 };
+
+export const getRandomInteger = (min: number, max: number) => Math.floor(Math.random() * (max - min + 1)) + min;
+
+export const getRandomCity = (): City => CITIES[getRandomInteger(0, CITIES.length - 1)];
+
+export const replaceFavoritePlaces = (oldPlace: Hotel, newPlace: Hotel): Hotel => {
+  if (oldPlace.id === newPlace.id) {
+    return newPlace;
+  }
+  return oldPlace;
+};
+
