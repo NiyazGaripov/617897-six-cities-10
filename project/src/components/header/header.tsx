@@ -1,14 +1,16 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {logoutAction} from '../../store/api-actions';
 import {AppRoute, AuthorizationStatus} from '../../constants';
+import {getAuthorizationStatus, getUser} from '../../store/auth/selectors';
+import {logoutAction} from '../../store/auth/api';
+import {getFavoritePlaces} from '../../store/places/selectors';
 
 export function Header(): JSX.Element {
   const dispatch = useAppDispatch();
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const user = useAppSelector((state) => state.user);
-  const favoritePlaces = useAppSelector((state) => state.favoritePlaces);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const user = useAppSelector(getUser);
+  const favoritePlaces = useAppSelector(getFavoritePlaces);
 
   const handleSignOutClick = (evt: React.MouseEvent<HTMLElement>) => {
     evt.preventDefault();

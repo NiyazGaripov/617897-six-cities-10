@@ -1,8 +1,7 @@
 import {Route, Routes, Outlet} from 'react-router-dom';
-import {AppRoute, DataLoadingStatus} from '../../constants';
+import {AppRoute, CITIES} from '../../constants';
 import {browserHistory} from '../../browser-history';
 import {useAppSelector} from '../../hooks';
-import {CITIES} from '../../mocks/cities.const';
 import {HistoryRouter} from '../history-route/history-route';
 import {Main} from '../../pages/main/main';
 import {Login} from '../../pages/login/login';
@@ -11,12 +10,13 @@ import {Property} from '../../pages/property/property';
 import {NotFound} from '../../pages/not-found/not-found';
 import {PrivateRoute} from '../private-route/private-route';
 import {Loading} from '../loading/loading';
+import {getAuthorizationStatus, getLoadingStatus} from '../../store/auth/selectors';
 
 export function App(): JSX.Element {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const dataLoadingStatus = useAppSelector((state) => state.dataLoadingStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const loadingStatus = useAppSelector(getLoadingStatus);
 
-  if (dataLoadingStatus === DataLoadingStatus.Pending) {
+  if (loadingStatus) {
     return (
       <Loading />
     );
@@ -47,9 +47,7 @@ export function App(): JSX.Element {
         />
         <Route
           path={AppRoute.Room}
-          element={
-            <Property />
-          }
+          element={<Property />}
         />
         <Route
           path={AppRoute.NotFound}

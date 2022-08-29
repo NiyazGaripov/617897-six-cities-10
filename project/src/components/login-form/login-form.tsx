@@ -1,7 +1,7 @@
 import {FormEvent} from 'react';
 import {useAppDispatch} from '../../hooks';
-import {loginAction} from '../../store/api-actions';
 import {useFormField} from '../../hooks/useFormField';
+import {loginAction} from '../../store/auth/api';
 
 export function LoginForm(): JSX.Element {
   const dispatch = useAppDispatch();

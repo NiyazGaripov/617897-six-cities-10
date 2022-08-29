@@ -2,14 +2,25 @@ import {Hotel} from '../../types/hotel.type';
 import {InsideFeatures} from '../inside-features/inside-features';
 import {PropertyHost} from '../property-host/property-host';
 import {transformRatingToPercentage} from '../../utils/common';
+import styles from './property-info.module.css';
+import {setFavoriteStatusAction} from '../../store/places/api';
+import {useAppDispatch} from '../../hooks';
 
 type Props = {
   hotel: Hotel;
 };
 
-export function PropertyCard({hotel}: Props): JSX.Element {
-  const { bedrooms, description, goods, host, isPremium, maxAdults, price, rating, title, type } = hotel;
-
+export function PropertyInfo({hotel}: Props): JSX.Element {
+  const dispatch = useAppDispatch();
+  const { id, bedrooms, description, goods, host, isFavorite, isPremium, maxAdults, price, rating, title, type } = hotel;
+  const handleButtonClick = () => {
+    dispatch(setFavoriteStatusAction(
+      {
+        id,
+        status: Number(!isFavorite)
+      }
+    ));
+  };
   return (
     <>
       {
@@ -23,8 +34,16 @@ export function PropertyCard({hotel}: Props): JSX.Element {
         <h1 className="property__name">
           {title}
         </h1>
-        <button className="property__bookmark-button button" type="button">
-          <svg className="property__bookmark-icon" width="31" height="33">
+        <button
+          className="property__bookmark-button button"
+          type="button"
+          onClick={handleButtonClick}
+        >
+          <svg
+            className={`property__bookmark-icon ${isFavorite && styles.active}`}
+            width="31"
+            height="33"
+          >
             <use xlinkHref="#icon-bookmark" />
           </svg>
           <span className="visually-hidden">To bookmarks</span>

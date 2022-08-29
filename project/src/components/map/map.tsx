@@ -51,7 +51,7 @@ export function Map({className, city, places, activeHotelId}: Props): JSX.Elemen
     if (map) {
       map.flyTo(
         [city.location.latitude, city.location.longitude],
-        10,
+        13,
         {
           duration: 2
         }
@@ -62,7 +62,7 @@ export function Map({className, city, places, activeHotelId}: Props): JSX.Elemen
   return (
     <section
       className={`${className}__map map`}
-      style={{height: '1000px'}}
+      style={{height: '1200px'}}
       ref={mapRef}
     />
   );

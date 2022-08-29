@@ -5,9 +5,10 @@ type Props = {
   title: string;
   onFormFieldChange: (evt: ChangeEvent<HTMLInputElement>) => void;
   currentValue: number;
+  loadingStatus: boolean;
 }
 
-export function RatingFormControl({value, title, onFormFieldChange, currentValue}: Props): JSX.Element {
+export function RatingFormControl({value, title, onFormFieldChange, currentValue, loadingStatus}: Props): JSX.Element {
   return (
     <>
       <input
@@ -18,6 +19,7 @@ export function RatingFormControl({value, title, onFormFieldChange, currentValue
         type="radio"
         onChange={onFormFieldChange}
         checked={value === currentValue}
+        disabled={loadingStatus}
       />
       <label
         htmlFor={`${value}-stars`}
