@@ -1,5 +1,7 @@
+import dayjs, {ConfigType} from 'dayjs';
 import {City, Hotel} from '../types/hotel.type';
 import {CITIES, SortingType} from '../constants';
+import {Comment} from '../types/comment.type';
 
 const MAX_PERCENTAGE = 100;
 const MAX_RATING = 5;
@@ -32,3 +34,6 @@ export const replaceFavoritePlaces = (oldPlace: Hotel, newPlace: Hotel): Hotel =
   return oldPlace;
 };
 
+export const getFormatDate = (date: ConfigType, format: string) => dayjs(date).format(format);
+
+export const sortCommentsByDate = (commentA: Comment, commentB: Comment) => dayjs(commentB.date).diff(dayjs(commentA.date));
