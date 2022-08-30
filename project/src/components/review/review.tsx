@@ -1,5 +1,5 @@
 import {Comment} from '../../types/comment.type';
-import {transformRatingToPercentage} from '../../utils/common';
+import {getFormatDate, transformRatingToPercentage} from '../../utils/common';
 
 type Props = {
   comment: Comment;
@@ -24,7 +24,12 @@ export function Review({comment}: Props): JSX.Element {
         <p className="reviews__text">
           {comment.comment}
         </p>
-        <time className="reviews__time" dateTime="2019-04-24">{comment.date}</time>
+        <time
+          className="reviews__time"
+          dateTime={getFormatDate(comment.date, 'YYYY-MM-DD')}
+        >
+          {getFormatDate(comment.date, 'MMMM YYYY')}
+        </time>
       </div>
     </li>
   );
