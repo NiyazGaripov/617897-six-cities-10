@@ -18,6 +18,7 @@ export const app = createSlice({
   reducers: {
     setCity: (state, action) => {
       state.city = action.payload;
+      state.activeSortingType = SortingType.Popular;
     },
     setSortingType: (state, action) => {
       state.activeSortingType = action.payload;

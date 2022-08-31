@@ -39,7 +39,7 @@ export function PlaceCard({hotel, className, onPlaceCardEnter, onPlaceCardLeave}
       }
       <div className={`${className}__image-wrapper place-card__image-wrapper`}>
         <Link to={`/offer/${id}`}>
-          <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image" />
+          <img className="place-card__image" src={previewImage} width="260" height="200" alt="" />
         </Link>
       </div>
       <div className={`${className}__card-info place-card__info`}>

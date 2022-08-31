@@ -16,7 +16,7 @@ export function Login(): JSX.Element {
     if (authorizationStatus === AuthorizationStatus.Auth) {
       dispatch(redirectToRoute(AppRoute.Main));
     }
-  }, [authorizationStatus]);
+  }, [authorizationStatus, dispatch]);
 
   return (
     <>
