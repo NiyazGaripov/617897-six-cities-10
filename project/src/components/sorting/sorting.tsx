@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import {useAppDispatch} from '../../hooks';
 import {SortingType} from '../../constants';
 import {City} from '../../types/hotel.type';
@@ -17,12 +17,6 @@ export function Sorting({activeSortingType, city}: Props): JSX.Element {
     toggleSorting(!isSortingOpen);
     dispatch(setSortingType(sortingType));
   };
-
-  useEffect(() => {
-    if (activeSortingType !== SortingType.Popular) {
-      dispatch(setSortingType(SortingType.Popular));
-    }
-  }, [city]);
 
   return (
     <form className="places__sorting" action="src/pages/main/main#" method="get">

@@ -41,10 +41,14 @@ export function useValidation(value: string, validators: Validator) {
           setPasswordError(!isValidPassword(value));
           break;
         case 'minLength':
-          setMinLengthError(value.length < validators[validator]!);
+          if (validators.minLength) {
+            setMinLengthError(value.length < validators.minLength);
+          }
           break;
         case 'maxLength':
-          setMaxLengthError(value.length > validators[validator]!);
+          if (validators.maxLength) {
+            setMaxLengthError(value.length > validators.maxLength);
+          }
           break;
       }
     }

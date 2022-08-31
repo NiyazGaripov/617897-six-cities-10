@@ -21,7 +21,7 @@ export function Property(): JSX.Element {
       window.scrollTo(0, 0);
       dispatch(fetchPlaceAction(Number(id)));
     }
-  }, [id]);
+  }, [id, dispatch]);
 
   if (!place || Number(id) !== place.id) {
     return (
