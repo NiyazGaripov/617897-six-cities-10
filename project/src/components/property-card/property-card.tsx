@@ -5,7 +5,7 @@ import {AuthorizationStatus} from '../../constants';
 import {ReviewForm} from '../review-form/review-form';
 import {useAppSelector} from '../../hooks';
 import {getAuthorizationStatus} from '../../store/auth/selectors';
-import {getComments} from '../../store/comments/selectors';
+import {getSortedComments} from '../../store/comments/selectors';
 import {Hotel} from '../../types/hotel.type';
 
 type Props = {
@@ -14,7 +14,7 @@ type Props = {
 
 export function PropertyCard({place}: Props): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
-  const comments = useAppSelector(getComments);
+  const comments = useAppSelector(getSortedComments);
 
   return (
     <>

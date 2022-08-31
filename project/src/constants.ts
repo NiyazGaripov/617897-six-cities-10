@@ -107,3 +107,5 @@ export const CITIES: City[] = [
     name: 'Dusseldorf',
   },
 ];
+
+export const MAX_COMMENTS_COUNT = 10;

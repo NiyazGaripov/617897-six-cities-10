@@ -23,7 +23,7 @@ export function Property(): JSX.Element {
     }
   }, [id]);
 
-  if (!place) {
+  if (!place || Number(id) !== place.id) {
     return (
       <Loading />
     );
