@@ -1,16 +1,15 @@
 import {useEffect, useState} from 'react';
 
+const EMAIL_REGEXP = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const PASSWORD_REGEXP = /[a-zA-Z]+[0-9]|[0-9]+[a-zA-z]/;
+
 const isValidEmail = (email: string) => email
   .toLowerCase()
-  .match(
-    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-  );
+  .match(EMAIL_REGEXP);
 
 const isValidPassword = (password: string) => password
   .toLowerCase()
-  .match(
-    /[a-zA-Z]+[0-9]|[0-9]+[a-zA-z]/
-  );
+  .match(PASSWORD_REGEXP);
 
 export type Validator = {
   allowEmpty?: boolean;
