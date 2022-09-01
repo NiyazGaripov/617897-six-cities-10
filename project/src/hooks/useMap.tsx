@@ -11,27 +11,35 @@ export function useMap(
   const isRenderedRef = useRef<boolean>(false);
 
   useEffect(() => {
-    if (mapRef.current !== null && !isRenderedRef.current) {
-      const instance = new Map(mapRef.current, {
-        center: {
-          lat: city.location.latitude,
-          lng: city.location.longitude,
-        },
-        zoom: city.location.zoom,
-      });
+    let isMounted = true;
 
-      const layer = new TileLayer(
-        LAYER_URL_TEMPLATE,
-        {
-          attribution: LAYER_ATTRIBUTION,
-        }
-      );
+    if (isMounted) {
+      if (mapRef.current !== null && !isRenderedRef.current) {
+        const instance = new Map(mapRef.current, {
+          center: {
+            lat: city.location.latitude,
+            lng: city.location.longitude,
+          },
+          zoom: city.location.zoom,
+        });
 
-      instance.addLayer(layer);
+        const layer = new TileLayer(
+          LAYER_URL_TEMPLATE,
+          {
+            attribution: LAYER_ATTRIBUTION,
+          }
+        );
 
-      setMap(instance);
-      isRenderedRef.current = true;
+        instance.addLayer(layer);
+
+        setMap(instance);
+        isRenderedRef.current = true;
+      }
     }
+
+    return () => {
+      isMounted = false;
+    };
   }, [mapRef, map, city]);
 
   return map;
