@@ -6,7 +6,7 @@ import {Comment} from '../types/comment.type';
 const MAX_PERCENTAGE = 100;
 const MAX_RATING = 5;
 
-export const transformRatingToPercentage = (rating: number): string => `${(MAX_PERCENTAGE / MAX_RATING) * rating}%`;
+export const transformRatingToPercentage = (rating: number): string => `${(MAX_PERCENTAGE / MAX_RATING) * Math.round(rating)}%`;
 
 export const filterPlaces = (places: Hotel[], city: City) => places.filter((place) => place.city.name === city.name);
 
