@@ -2,7 +2,7 @@ import {createSlice} from '@reduxjs/toolkit';
 import {City} from '../../types/hotel.type';
 import {DEFAULT_CITY, NameSpace, SortingType} from '../../constants';
 
-type AppState = {
+export type AppState = {
   city: City,
   activeSortingType: SortingType,
 }
