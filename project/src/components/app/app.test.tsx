@@ -98,6 +98,14 @@ describe('Application Routing', () => {
     expect(screen.getByText(/Password/i)).toBeInTheDocument();
   });
 
+  it('should render Favorites if favorites is not empty when user is navigated to /favorites', () => {
+    history.push(AppRoute.Favorites);
+
+    render(fakeWithAuthApp);
+
+    expect(screen.getByText(/Saved listing/i)).toBeInTheDocument();
+  });
+
   it('should render empty favorites if favorites is empty when user is navigated to /favorites', () => {
     storeWithAuth.getState()[NameSpace.Places].favoritePlaces = [];
     history.push(AppRoute.Favorites);
@@ -106,14 +114,6 @@ describe('Application Routing', () => {
 
     expect(screen.getByText(/Nothing yet saved./i)).toBeInTheDocument();
     expect(screen.getByText(/Save properties to narrow down search or plan your future trips./i)).toBeInTheDocument();
-  });
-
-  it('should render Favorites if favorites is not empty when user is navigated to /favorites', () => {
-    history.push(AppRoute.Favorites);
-
-    render(fakeWithAuthApp);
-
-    expect(screen.getByText(/Saved listing/i)).toBeInTheDocument();
   });
 
   it('should redirect to /login if user not authorization and user wants to be navigated to /favorites', () => {
