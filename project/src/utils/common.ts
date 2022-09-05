@@ -1,10 +1,9 @@
 import dayjs, {ConfigType} from 'dayjs';
 import {City, Hotel} from '../types/hotel.type';
-import {CITIES, SortingType} from '../constants';
+import {CITIES, MAX_RATING, SortingType} from '../constants';
 import {Comment} from '../types/comment.type';
 
 const MAX_PERCENTAGE = 100;
-const MAX_RATING = 5;
 
 export const transformRatingToPercentage = (rating: number): string => `${(MAX_PERCENTAGE / MAX_RATING) * Math.round(rating)}%`;
 

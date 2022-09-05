@@ -3,7 +3,7 @@ import {AxiosInstance} from 'axios';
 import {Comment} from '../../types/comment.type';
 import {APIRoute} from '../../constants';
 
-type ReviewData = {
+export type ReviewData = {
   id: number,
   rating: number
   comment: string

@@ -3,7 +3,7 @@ import {createSlice} from '@reduxjs/toolkit';
 import {NameSpace} from '../../constants';
 import {addNewCommentAction, fetchCommentsAction} from './api';
 
-type CommentsState = {
+export type CommentsState = {
   comments: Comment[],
   loading: boolean,
   error?: string,

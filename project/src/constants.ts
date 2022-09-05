@@ -109,3 +109,7 @@ export const CITIES: City[] = [
 ];
 
 export const MAX_COMMENTS_COUNT = 10;
+
+export const MAX_RATING = 5;
+
+export const MOCK_ID = 5;

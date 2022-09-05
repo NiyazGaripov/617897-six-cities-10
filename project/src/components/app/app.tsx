@@ -1,8 +1,6 @@
 import {Route, Routes, Outlet} from 'react-router-dom';
 import {AppRoute, CITIES} from '../../constants';
-import {browserHistory} from '../../browser-history';
 import {useAppSelector} from '../../hooks';
-import {HistoryRouter} from '../history-route/history-route';
 import {Main} from '../../pages/main/main';
 import {Login} from '../../pages/login/login';
 import {Favorites} from '../../pages/favorites/favorites';
@@ -23,37 +21,35 @@ export function App(): JSX.Element {
   }
 
   return (
-    <HistoryRouter history={browserHistory}>
-      <Routes>
-        <Route
-          path={AppRoute.Main}
-          element={<Main />}
-        >
-          {
-            CITIES.map((city) => <Route path={city.name} key={city.name} element={<Outlet />}/>)
-          }
-        </Route>
-        <Route
-          path={AppRoute.Login}
-          element={<Login />}
-        />
-        <Route
-          path={AppRoute.Favorites}
-          element={
-            <PrivateRoute authorizationStatus={authorizationStatus}>
-              <Favorites />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path={AppRoute.Room}
-          element={<Property />}
-        />
-        <Route
-          path={AppRoute.NotFound}
-          element={<NotFound />}
-        />
-      </Routes>
-    </HistoryRouter>
+    <Routes>
+      <Route
+        path={AppRoute.Main}
+        element={<Main />}
+      >
+        {
+          CITIES.map((city) => <Route path={city.name} key={city.name} element={<Outlet />}/>)
+        }
+      </Route>
+      <Route
+        path={AppRoute.Login}
+        element={<Login />}
+      />
+      <Route
+        path={AppRoute.Favorites}
+        element={
+          <PrivateRoute authorizationStatus={authorizationStatus}>
+            <Favorites />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path={AppRoute.Room}
+        element={<Property />}
+      />
+      <Route
+        path={AppRoute.NotFound}
+        element={<NotFound />}
+      />
+    </Routes>
   );
 }

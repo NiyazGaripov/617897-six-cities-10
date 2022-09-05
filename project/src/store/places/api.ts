@@ -6,7 +6,7 @@ import {AppDispatch} from '../../types/state';
 import {redirectToRoute} from '../actions';
 import {fetchCommentsAction} from '../comments/api';
 
-type FavoriteStatusData = {
+export type FavoriteStatusData = {
   id: number;
   status: number;
 };

@@ -10,7 +10,7 @@ import {
 } from './api';
 import {replaceFavoritePlaces} from '../../utils/common';
 
-type PlacesState = {
+export type PlacesState = {
   places: Hotel[],
   place?: Hotel,
   favoritePlaces: Hotel[],

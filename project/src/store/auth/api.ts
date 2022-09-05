@@ -7,7 +7,7 @@ import {dropToken, saveToken} from '../../services/token';
 import {redirectToRoute} from '../actions';
 import {fetchFavoritePlacesAction, fetchPlacesAction} from '../places/api';
 
-type AuthData = {
+export type AuthData = {
   email: string
   password: string
 };

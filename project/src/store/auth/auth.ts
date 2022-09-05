@@ -3,7 +3,7 @@ import {User} from '../../types/user.type';
 import {AuthorizationStatus, NameSpace} from '../../constants';
 import {checkAuthAction, loginAction, logoutAction} from './api';
 
-type AuthState = {
+export type AuthState = {
   authorizationStatus: AuthorizationStatus,
   loading: boolean,
   user: User | null,
